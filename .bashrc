@@ -57,7 +57,9 @@ export PS1
 
 
 
-PATH="$PATH:/var/lib/gems/1.8/bin"
+if [ -d /var/lib/gems/1.8/bin ] ; then
+    PATH="$PATH:/var/lib/gems/1.8/bin"
+fi
 
 # Java rc
 export JDK_HOME='/usr/lib/jvm/default-java'
@@ -68,7 +70,6 @@ export CVSROOT='/var/lib/cvsd/myrepos'
 
 
 # hosts
-export HOCOM="s1.ho.com.ua"
 
 
 
@@ -105,11 +106,13 @@ export BROWSER="firefox"
 # Places
 # 
 
-export VESTIFY='/home/bogdan/makabu/medved/winvest/repository'
-export PEROOZAL='/home/bogdan/makabu/railsware/peroozal/repository'
-export YAWMA='/home/bogdan/makabu/railsware/yawma/repository'
-export STARTWIRE='/home/bogdan/makabu/railsware/startwire/repository'
-export INBIZ='/home/bogdan/makabu/inbiz/repository'
+if [ -d /home/bogdan/makabu ] ; then
+    export VESTIFY='/home/bogdan/makabu/medved/winvest/repository'
+    export PEROOZAL='/home/bogdan/makabu/railsware/peroozal/repository'
+    export YAWMA='/home/bogdan/makabu/railsware/yawma/repository'
+    export STARTWIRE='/home/bogdan/makabu/railsware/startwire/repository'
+    export INBIZ='/home/bogdan/makabu/inbiz/repository'
+fi
 export RUBY_GEMS='/var/lib/gems/1.8/gems/'
    
 
@@ -127,57 +130,3 @@ mkcd()
 }
 
 
-
-
-cfg_dir="cfg"
-
-
-backup()
-{
-	mkdir -p $1 || exit 1
-	ARCHFILE="$1/backup.`ymd`.tar.gz"
-	ITEMS="\
-	/home/screamer/projects/ \
-	/home/screamer/access/ \
-	/mnt/d/different/ \
-	/mnt/d/games/hl/valve/hlscr.cfg \
-	/home/screamer/.bashrc \
-	/home/screamer/.vimrc \
-	/home/screamer/.purple/
-	"
-	tar -zcf $ARCHFILE $ITEMS 
-	
-}
-
-cfgget()
-{
-	if ! ping -c 3 $HOCOM > /dev/null 2> /dev/null ; then
-		echo $HOCOM not respond.
-		exit 1
-	fi
-	ftp $HOCOM << EOF
-	passive
-	verbose
-	cd $cfg_dir
-	lcd ~
-	get .bashrc
-	get .vimrc
-EOF
-}
-
-cfgput()
-{
-	if ! ping -c 1 $HOCOM > /dev/null 2> /dev/null ; then
-		echo $HOCOM not respond.
-		return
-	fi
-	ftp $HOCOM << EOF
-	passive
-	verbose
-	cd $cfg_dir
-	lcd ~
-	put .bashrc
-	put .vimrc
-EOF
-
-}
