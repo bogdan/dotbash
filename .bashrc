@@ -114,7 +114,7 @@ if [ -d /home/bogdan/makabu ] ; then
     export INBIZ='/home/bogdan/makabu/inbiz/repository'
 fi
 
-if [ -d /var/data/www/apps/] ; then 
+if [ -d /var/data/www/apps/ ] ; then 
     export STARTWIRE="/var/data/www/apps/startwire/current"
 fi
 
