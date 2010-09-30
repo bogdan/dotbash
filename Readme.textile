@@ -1,0 +1,3 @@
+= Personal bash config
+
+Config and aliases for bash
