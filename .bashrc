@@ -113,6 +113,11 @@ if [ -d /home/bogdan/makabu ] ; then
     export STARTWIRE='/home/bogdan/makabu/railsware/startwire/repository'
     export INBIZ='/home/bogdan/makabu/inbiz/repository'
 fi
+
+if [ -d /var/data/www/apps/] ; then 
+    export STARTWIRE="/var/data/www/apps/startwire/current"
+fi
+
 export RUBY_GEMS='/var/lib/gems/1.8/gems/'
    
 
