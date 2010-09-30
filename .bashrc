@@ -34,7 +34,7 @@ if [ "$BASH_VERSION" ] ; then
 
 	# ps1 4 user 
   branch="$cyan\`git branch 2> /dev/null | grep -e ^* | sed -E s/^\\\\\\\\\*\ \(.+\)$/\\\\\\\\\1\ /\`"
-	PS1="$green\u@\h$blue \w $branch$normal$ "
+	PS1="$green\u@`hostname`$blue \w $branch$normal$ "
 	# ps1 4 root
 	[ $UID -eq 0 ] && \
 		PS1="$red\h $blue\w # $normal"
