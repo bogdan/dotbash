@@ -74,8 +74,18 @@ alias gpl="git pull"
 alias gpp="git pull && git push"
 alias gad="git add"
 alias gci="git commit -m"
+alias gco="git checkout"
 alias gdf="git diff"
 alias gdfs="git diff --staged"
+
+
+function bgit {
+    cd ~/.dotbash
+    git $@
+    cd - > /dev/null
+}
+#alias bashpl="cd ~/.dotbash/; git pull; cd -"
+#alias bashps="cd ~/.dotbash/; git push; cd -"
 
 
 #
@@ -83,9 +93,9 @@ alias gdfs="git diff --staged"
 #
 
 alias gem="sudo gem"
-alias r="rake --trace"
-alias rt="rake -T"
-alias rake="rake --trace"
+alias r="rake --trace -r rubygems"
+alias rt="rake -T -r rubygems"
+alias rake="rake --trace -r rubygems"
 alias gi="sudo gem install"
 alias gu="sudo gem uninstall"
 alias gl="gem list"
@@ -99,3 +109,4 @@ alias jr="jruby -S rake"
 #
 
 alias service="sudo service"
+alias deployer="sudo -u deployer"
