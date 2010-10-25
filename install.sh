@@ -1,5 +1,5 @@
 DIR=$(dirname $0)
 
-ln -s $DIR/.bashrc ~/.bashrc
-ln -s $DIR/.bash_aliases ~/.bash_aliases
+ln -s ~/.dotbash/.bashrc ~/.bashrc
+ln -s ~/.dotbash/.bash_aliases ~/.bash_aliases
 ln -s $DIR ~/.dotbash
