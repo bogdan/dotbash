@@ -85,11 +85,11 @@ alias gdf="git diff --color"
 alias gdfs="git diff --staged"
 
 
-function bashgit {
-    cd ~/.dotbash
-    git $@
-    cd - > /dev/null
-}
+#function bashgit {
+    #cd ~/.dotbash
+    #git $@
+    #cd - > /dev/null
+#}
 #alias bashpl="cd ~/.dotbash/; git pull; cd -"
 #alias bashps="cd ~/.dotbash/; git push; cd -"
 
