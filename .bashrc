@@ -57,8 +57,11 @@ export PS1
 
 
 
-if [ -d /var/lib/gems/1.8/bin ] ; then
+if [ -d "/var/lib/gems/1.8/bin" ] ; then
     PATH="$PATH:/var/lib/gems/1.8/bin"
+fi
+if [ -d "$HOME/bin" ] ; then
+    PATH="$PATH:$HOME/bin"
 fi
 
 # Java rc

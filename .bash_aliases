@@ -73,15 +73,15 @@ alias re="source ~/.bashrc"
 # Git
 #
 
-alias gst="git st"
-alias glg="git lg"
+alias gst="git status"
+alias glg="git log -p"
 alias gps="git push"
 alias gpl="git pull"
 alias gpp="git pull && git push"
 alias gad="git add"
 alias gci="git commit -m"
 alias gco="git checkout"
-alias gdf="git diff"
+alias gdf="git diff --color"
 alias gdfs="git diff --staged"
 
 
@@ -109,6 +109,7 @@ alias gs="gem search --remote"
 
 alias jgem="sudo jruby -S gem"
 alias jr="jruby -S rake"
+
 
 #
 # Just sudo
