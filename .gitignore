@@ -1,0 +1,7 @@
+*.swo
+*.swp
+.sass-cache
+config/mongrel_cluster.yml
+dump.rdb
+tags
+vimrc

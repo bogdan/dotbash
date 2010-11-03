@@ -1,0 +1,42 @@
+[core]
+				ignorecase = true
+				editor = vim
+	excludesfile = /home/bogdan/.gitignore
+[diff]
+				color = true
+				command = meld
+[alias]
+				ci = commit
+				st = status -u
+				pl = pull
+				ps = push
+				co = checkout
+				lg = log -p
+
+[merge]
+				tool = gvimdiff
+
+[log]
+				color = true
+				stat = true
+				p = true
+
+[user]
+				email = agresso@gmail.com
+				name = Bogdan Gusiev
+[color]
+				status = auto
+				diff = auto
+				log = auto
+
+[giggle]
+	main-window-maximized = true
+	main-window-geometry = 0x0+0+0
+	history-view-vpane-position = 388
+	main-window-view = HistoryView
+	file-view-vpane-position = 747
+[push]
+	default = matching
+[github]
+	user = bogdan
+	token = 02c6e4f23ac6b62bdd4b0d0b9bf3b76e
