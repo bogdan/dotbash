@@ -1,0 +1,4 @@
+#!/bin/sh
+
+[ -f tmp/pids/server.pid ] && kill $(cat tmp/pids/server.pid)
+./script/server -u -d -p $(cat tmp/port)

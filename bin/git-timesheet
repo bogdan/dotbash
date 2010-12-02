@@ -1,0 +1,1 @@
+ git log --committer=`git config --get user.email` --format="%ad %s" --simplify-merges --date=iso --since="1 week ago" --reverse | uniq -w 11 --all-repeated=prepend | sed "s/^\(.\{11\}\)\(.\{5\}\).\{9\}/\1\2/" | sed "s/^$//;ta;s/^.\{11\}//;bend;:a;n;s/ /\\n===========\\n\\n/;:end" |grep -iv "merge branch"
