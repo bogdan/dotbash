@@ -83,6 +83,7 @@ alias gci="git commit -m"
 alias gco="git checkout"
 alias gdf="git diff --color"
 alias gdfs="git diff --staged"
+alias ppd="gpl && gps && cap staging deploy"
 
 
 #function bashgit {
@@ -110,6 +111,9 @@ alias gs="gem search --remote"
 alias jgem="sudo jruby -S gem"
 alias jr="jruby -S rake"
 
+alias csd="cap staging deploy"
+alias cpd="cap production deploy"
+
 
 #
 # Just sudo
@@ -117,3 +121,4 @@ alias jr="jruby -S rake"
 
 alias service="sudo service"
 alias deployer="sudo -u deployer"
+alias svi="sudo vi"
