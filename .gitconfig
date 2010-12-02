@@ -12,6 +12,8 @@
 				ps = push
 				co = checkout
 				lg = log -p
+	lg = log --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%an %cr)%Creset' --abbrev-commit --date=relative
+	wtf = !git-wtf
 
 [merge]
 				tool = gvimdiff
@@ -22,8 +24,8 @@
 				p = true
 
 [user]
-				email = agresso@gmail.com
-				name = Bogdan Gusiev
+	email = agresso@gmail.com
+	name = Bogdan Gusiev
 [color]
 				status = auto
 				diff = auto
