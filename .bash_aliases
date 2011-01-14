@@ -26,7 +26,7 @@ alias dtail="dmesg | tail -n 20"
 alias t="tail -n10"
 alias t2="tail -n100"
 alias t3="tail -n1000"
-alias tf="tail -f"
+alias tf="tail -n30 -f"
 
 alias l="less -i -R"
 alias less='less -i -R'
