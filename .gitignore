@@ -5,3 +5,4 @@ config/mongrel_cluster.yml
 dump.rdb
 tags
 vimrc
+vendor/bundle
