@@ -1,4 +1,4 @@
-echo "=> ~/.bashrc"
+tty -s && echo "=> ~/.bashrc"
 
 # If not running interactively, don't do anything
 export HISTCONTROL=ignoredups
