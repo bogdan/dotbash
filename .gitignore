@@ -1,7 +1,9 @@
 *.swo
 *.swp
 .sass-cache
+.shelltoadrc
 config/mongrel_cluster.yml
 dump.rdb
 tags
 vimrc
+vendor/bundle
