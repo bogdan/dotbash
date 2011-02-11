@@ -112,6 +112,7 @@ alias jgem="sudo jruby -S gem"
 alias jr="jruby -S rake"
 
 alias csd="cap staging deploy"
+alias cdd="cap dev deploy"
 alias cpd="cap production deploy"
 
 
