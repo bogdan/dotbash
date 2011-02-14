@@ -79,7 +79,7 @@ alias gps="git push"
 alias gpl="git pull"
 alias gpp="git pull && git push"
 alias gad="git add"
-alias gci="git commit -m"
+alias gci="git commit"
 alias gco="git checkout"
 alias gdf="git diff --color"
 alias gdfs="git diff --staged"
@@ -112,6 +112,7 @@ alias jgem="sudo jruby -S gem"
 alias jr="jruby -S rake"
 
 alias csd="cap staging deploy"
+alias cdd="cap dev deploy"
 alias cpd="cap production deploy"
 
 
