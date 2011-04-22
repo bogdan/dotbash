@@ -24,9 +24,11 @@ alias ymd="date +%g.%m.%d"
 alias dtail="dmesg | tail -n 20"
 
 alias t="tail -n10"
-alias t2="tail -n100 | less"
-alias t3="tail -n1000 | less"
-alias tf="tail -n30 -f"
+alias t2="tail -n100"
+alias t3="tail -n1000"
+alias t4="tail -n10000"
+alias t5="tail -n100000"
+alias tf="tail -n50 -f"
 
 alias l="less -i -R"
 alias less='less -i -R'
@@ -83,7 +85,7 @@ alias gci="git commit"
 alias gco="git checkout"
 alias gdf="git diff --color"
 alias gdfs="git diff --staged"
-alias ppd="gpl && gps && cap staging deploy"
+alias ppd="gpl && gps && cap dev deploy"
 
 
 #function bashgit {

@@ -101,7 +101,7 @@ elif [ "`which more`" ] ; then
 fi
 export PAGER
 
-export BROWSER="firefox"
+export BROWSER="chromium-browser"
 
 
 
