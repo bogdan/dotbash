@@ -14,7 +14,6 @@ alias locate='locate -i'
 alias j='jobs'
 alias g='grep -r --color=auto -i'
 alias vg='grep --color=auto -iv'
-alias feh='feh -dzg 1024x768'
 alias mloop="sudo mount -o loop"
 alias psg="ps aux | grep --color=auto -i"
 alias grey="convert -fx \(r+g+b\)/3"
@@ -23,12 +22,12 @@ alias rw="chmod u+rw"
 alias ymd="date +%g.%m.%d"
 alias dtail="dmesg | tail -n 20"
 
-alias t="tail -n10"
+alias t="tail -n1000"
 alias t2="tail -n100"
 alias t3="tail -n1000"
 alias t4="tail -n10000"
 alias t5="tail -n100000"
-alias tf="tail -n50 -f"
+alias tf="tail -n100 -f"
 
 alias l="less -i -R"
 alias less='less -i -R'
