@@ -4,6 +4,7 @@ apt-get install skype #exclusive
 apt-get install vim-gnome xserver-xorg-input-synaptics-dev ttf-inconsolata kupfer workrave tig chromium-browser flashplugin-installer htop nmap transmission-gtk
  ttf-mscorefonts-installer
 
+apt-get install zip unzip rar unrar
 
 
 apt-get install postgresql libpq-dev redis-server libpq-dev openjdk-6-jdk etckeeper rhino
@@ -11,9 +12,9 @@ apt-get install postgresql libpq-dev redis-server libpq-dev openjdk-6-jdk etckee
 vi /etc/postgresql/8.4/main/pg_hba.conf 
 service postgresql restart
 
-
 vi /etc/etckeeper.conf
 etckeeper init
+
 
 
 
