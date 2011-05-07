@@ -24,7 +24,10 @@ apt-get install ruby rubygems ruby-dev
 apt-get install libxslt1-dev libxml2-dev  curl libreadline-dev ctags libsqlite3-dev
 
 
-gem install --no-ri --no-rdoc bundler shelltoad rails rspec-rails  pivotal_shell resque resque_scheduler pg system_timer sunspot_rails ruby-debug bond wirble ruby-debug-ide rake 
+gem install --no-ri --no-rdoc \
+    bundler shelltoad rails rspec-rails  pivotal_shell resque resque_scheduler \
+    pg system_timer sunspot_rails ruby-debug bond wirble ruby-debug-ide rake \
+    jeweler hirb
 
 
 vi /etc/hosts
