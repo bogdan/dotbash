@@ -1,3 +1,7 @@
+#!/bin/sh
+
+[ $ZSH_VERSION ] || (type zsh &> /dev/null && zsh && exit 0)
+
 tty -s && echo "=> ~/.bashrc"
 
 # If not running interactively, don't do anything
@@ -46,12 +50,6 @@ fi
 # ksh specific
 if [ $SHELL = "/bin/ksh" ] ; then
 	set -o vi -o viraw
-	if [ $SRV ] ; then
-		hostname=$SRV
-	else
-		hostname=`hostname`
-	fi
-	PS1="`whoami`@$hostname \${PWD} > "
 fi
 export PS1
 
@@ -69,7 +67,6 @@ export JDK_HOME='/usr/lib/jvm/default-java'
 export JAVA_HOME="$JDK_HOME" 
 export CLASSPATH=":$HOME/test/java:.:"
 
-export CVSROOT='/var/lib/cvsd/myrepos'
 
 
 # hosts
