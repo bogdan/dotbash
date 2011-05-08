@@ -1,5 +1,6 @@
 *.swo
 *.swp
+.rake_tasks
 .sass-cache
 .shelltoadrc
 config/mongrel_cluster.yml

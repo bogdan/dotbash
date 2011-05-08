@@ -1,9 +1,8 @@
 #!/bin/zsh
 
-[ -f ~/.bashrc ] && source ~/.bashrc
+#[ -f ~/.bashrc ] && source ~/.bashrc
 autoload -U colors && colors
 
-bindkey -e
 
 alias re="source ~/.zshrc"
 
