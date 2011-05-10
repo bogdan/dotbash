@@ -1,15 +1,14 @@
 #!/bin/bash
 
+[ $ZSH_VERSION ] || alias compdef="true"
+
 alias eject="eject -T" 
 alias p="ping"
 alias pg="ping google.com"
-alias m='mplayer -osdlevel 3 -idx'
 alias s='screen'
-alias vol='amixer sset PCM'
 alias cdrecord="cdrecord dev=/dev/cdrom gracetime=5 -multi"
 alias mkisofs="mkisofs -J -R"
 alias mc="mc --colors normal=cyan,default:marked=green,default:directory=brown,default:errors=red,default:executable=red,default:link=green,default:device=magenta,default: menu=white,default:menuhot=white,default:menusel=white,default:menuhotsel=white,default:helpnormal=white,default:helplink=white,default:helpslink=white,default:helpitalic=white,default:reverse=brown,default:gauge=brown,default:input=brown,default:selected=white,default:markselect=brown,gray"
-alias au='audacious'
 alias locate='locate -i'
 alias j='jobs'
 alias g='grep -r --color=auto -i'
@@ -18,7 +17,9 @@ alias mloop="sudo mount -o loop"
 alias psg="ps aux | grep --color=auto -i"
 alias grey="convert -fx \(r+g+b\)/3"
 alias x="chmod a+x"
+compdef _chmod x=chmod a+x
 alias rw="chmod u+rw"
+compdef _chmod rw=chmod a+x
 alias ymd="date +%g.%m.%d"
 alias dtail="dmesg | tail -n 20"
 
@@ -37,7 +38,9 @@ alias ag="sudo apt-get -V"
 alias ai="sudo apt-get -V install"
 alias ac="apt-cache"
 alias ash="apt-cache show" 
+compdef _apt-cache ash=apt-cache show
 alias as="apt-cache search"
+compdef _apt-cache as=apt-cache search
 
 alias gh="history | grep --color=auto -i"
 
@@ -74,26 +77,51 @@ alias re="source ~/.bashrc"
 # Git
 #
 
-alias gst="git status"
-alias glg="git log -p"
-alias gps="git push"
-alias gpl="git pull"
-alias gpp="git pull && git push"
 alias gad="git add"
-alias gci="git commit"
-alias gco="git checkout"
+compdef _git gad=git-add
+
+
+alias gst='git status'
+compdef _git gst=git-status
+alias gpl='git pull'
+compdef _git gl=git-pull
+alias gup='git fetch && git rebase'
+compdef _git gup=git-fetch
+alias gps='git push'
+compdef _git gp=git-push
 alias gdf="git diff --color"
-alias gdfs="git diff --staged"
+compdef _git gdf=git-diff
+alias gci='git commit -v'
+compdef _git gc=git-commit
+alias gca='git commit -v -a'
+compdef _git gca=git-commit
+alias gco='git checkout'
+compdef _git gco=git-checkout
+alias gbr='git branch'
+compdef _git gb=git-branch
+alias gba='git branch -a'
+compdef _git gba=git-branch
+alias gcount='git shortlog -sn'
+compdef gcount=git
+alias gcp='git cherry-pick'
+compdef _git gcp=git-cherry-pick
+alias glg='git log --stat --max-count=5'
+compdef _git glg=git-log
+
+alias gpp="git pull && git push"
 alias ppd="gpl && gps && cap dev deploy"
 
 
-#function bashgit {
-    #cd ~/.dotbash
-    #git $@
-    #cd - > /dev/null
-#}
-#alias bashpl="cd ~/.dotbash/; git pull; cd -"
-#alias bashps="cd ~/.dotbash/; git push; cd -"
+
+bashgit() {
+    cd ~/.dotbash
+    git $@
+    cd - > /dev/null
+    return true
+}
+compdef _git bashgit=git
+alias bashpl="cd ~/.dotbash/; git pull; cd - > /dev/null"
+alias bashps="cd ~/.dotbash/; git push; cd - > /dev/null"
 
 
 #
@@ -123,4 +151,5 @@ alias cpd="cap production deploy"
 
 alias service="sudo service"
 alias deployer="sudo -u deployer"
+compdef _sudo deployer=sudo
 alias svi="sudo vi"

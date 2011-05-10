@@ -1,44 +1,60 @@
 [core]
-				ignorecase = true
-				editor = vim
-	excludesfile = /home/bogdan/.gitignore
+    ignorecase = true
+    editor = vim
+    excludesfile = /home/bogdan/.gitignore
 [diff]
-				color = true
-				command = meld
+    color = true
+    command = meld
 [alias]
-				ci = commit
-				st = status -u
-				pl = pull
-				ps = push
-				co = checkout
-				lg = log -p
-	lg = log --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%an %cr)%Creset' --abbrev-commit --date=relative
-	wtf = !git-wtf
+    ci = commit
+    st = status -u
+    pl = pull
+    ps = push
+    co = checkout
+    lg = log -p
+    lg = log --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%an %cr)%Creset' --abbrev-commit --date=relative
+    wtf = !git-wtf
 
 [merge]
-				tool = gvimdiff
+    tool = gvimdiff
 
 [log]
-				color = true
-				stat = true
-				p = true
+    color = true
+    stat = true
+    p = true
 
 [user]
-	email = agresso@gmail.com
-	name = Bogdan Gusiev
+    email = agresso@gmail.com
+    name = Bogdan Gusiev
 [color]
-				status = auto
-				diff = auto
-				log = auto
+    status = auto
+    diff = auto
+    log = auto
 
 [giggle]
-	main-window-maximized = true
-	main-window-geometry = 0x0+0+0
-	history-view-vpane-position = 388
-	main-window-view = HistoryView
-	file-view-vpane-position = 747
+    main-window-maximized = true
+    main-window-geometry = 0x0+0+0
+    history-view-vpane-position = 388
+    main-window-view = HistoryView
+    file-view-vpane-position = 747
 [push]
-	default = matching
+    default = matching
 [github]
-	user = bogdan
-	token = 02c6e4f23ac6b62bdd4b0d0b9bf3b76e
+    user = bogdan
+    token = 02c6e4f23ac6b62bdd4b0d0b9bf3b76e
+
+
+[url "git@github.com:"]
+    insteadOf = "gh:"
+    pushInsteadOf = "github:"
+    pushInsteadOf = "git://github.com/"
+[url "git://github.com/"]
+    insteadOf = "github:"
+[url "git@gist.github.com:"]
+    insteadOf = "gst:"
+    pushInsteadOf = "gist:"
+    pushInsteadOf = "git://gist.github.com/"
+[url "git://gist.github.com/"]
+    insteadOf = "gist:"
+[url "git@heroku.com:"]
+    insteadOf = "heroku:"
