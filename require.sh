@@ -1,12 +1,11 @@
 #!/bin/sh
-<<<<<<< HEAD
 
 apt-get install skype #exclusive
 
 
 
 #Server goodies
-apt-get install vim-gnome ttf-inconsolata tig htop nmap zsh curl ctags 
+apt-get install vim ttf-inconsolata tig htop nmap zsh curl ctags 
 
 
 apt-get install zip unzip rar unrar
@@ -14,7 +13,7 @@ apt-get install zip unzip rar unrar
 apt-get install skype #exclusive
 
 apt-get install xserver-xorg-input-synaptics-dev kupfer workrave chromium-browser \
-    vlc shutter \
+    vlc shutter vim-gnome \
     flashplugin-installer transmission-gtk ttf-mscorefonts-installer
 
 
@@ -39,7 +38,7 @@ apt-get install libxslt1-dev libxml2-dev  curl libreadline-dev libsqlite3-dev
 gem install --no-ri --no-rdoc \
     bundler shelltoad rails rspec-rails  pivotal_shell resque resque_scheduler \
     pg system_timer sunspot_rails ruby-debug bond wirble ruby-debug-ide rake \
-    jeweler hirb
+    jeweler hirb showoff
 
 
 vi /etc/hosts
