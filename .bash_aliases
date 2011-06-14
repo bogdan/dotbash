@@ -109,7 +109,7 @@ alias glg='git log --stat --max-count=5'
 compdef _git glg=git-log
 
 alias gpp="git pull && git push"
-alias ppd="gpl && gps && cap dev deploy"
+alias ppd="gpl && (gps; cap dev deploy)"
 
 
 
@@ -144,7 +144,10 @@ alias csd="cap staging deploy"
 alias cdd="cap dev deploy"
 alias cpd="cap production deploy"
 
+alias pci="pivotal commit"
 
+alias be="bundle exec"
+alias bi="bundle install"
 #
 # Just sudo
 #

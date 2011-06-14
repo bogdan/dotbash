@@ -107,10 +107,9 @@ export BROWSER="chromium-browser"
 # 
 
 if [ -d /home/bogdan/makabu ] ; then
-    export VESTIFY='/home/bogdan/makabu/medved/winvest/repository'
     export PEROOZAL='/home/bogdan/makabu/railsware/peroozal/repository'
-    export YAWMA='/home/bogdan/makabu/railsware/yawma/repository'
     export STARTWIRE='/home/bogdan/makabu/railsware/startwire/repository'
+    export MANAGE='/home/bogdan/makabu/railsware/product_manager'
     export INBIZ='/home/bogdan/makabu/inbiz/repository'
 fi
 
@@ -128,10 +127,12 @@ export RUBY_GEMS='/var/lib/gems/1.8/gems/'
 
 
 
+export RET="RAILS_ENV=test"
+export REP="RAILS_ENV=production"
 mkcd()
 {
 	mkdir $1
 	cd $1
 }
 
-
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"

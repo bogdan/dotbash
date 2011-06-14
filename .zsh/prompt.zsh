@@ -14,7 +14,7 @@ git_prompt_info() {
 
 
 
-export PS1="%{%F{green}%}%n@%m %{%F{blue}%}%~ %{%F{cyan}%}\$(git_prompt_info) %{%f%}$%\ "
+export PS1="%{$fg[green]%}%n@%m %{$fg[blue]%}%~ %{$fg[cyan]%}\$(git_prompt_info) %{$reset_color%}$%\ "
 
 
 setopt promptsubst
