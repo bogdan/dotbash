@@ -1,50 +1,75 @@
-#!/bin/sh
+#!/usr/bin/ruby
 
 
-SUB_PATH="app"
-
-OLD_SINGULAR_CLASS=$1
-OLD_PLURAL_CLASS=$(pluralize $1)
-OLD_SINGULAR_VARIABLE=$(underscore $1)
-OLD_PLURAL_VARIABLE=$(pluralize $OLD_SINGULAR_VARIABLE)
-
-NEW_SINGULAR_CLASS=$2
-NEW_PLURAL_CLASS=$(pluralize $2)
-NEW_SINGULAR_VARIABLE=$(underscore $2)
-NEW_PLURAL_VARIABLE=$(pluralize $NEW_SINGULAR_VARIABLE)
-
-replace_in_path() {
-    find $SUB_PATH -type f -exec sed -i "s/$1/$2/g" {} \;
-}
-
-rename_files() {
-    for filename in $(find $SUB_PATH -name $1* ); do
-        w_o_ext=$(echo $filename | sed "s/$1/$2/g");
-        if [ -d .git ] ; then
-            git mv $filename $w_o_ext
-        else
-            echo "$filename => $w_o_ext";
-            mv $filename $w_o_ext;
-        fi
-    done
-}
-
-# In order to not touch plural form 
-# while working with singular form start from plural form first.
+require 'rubygems'
+require "active_support/inflector"
+require "optparse"
 
 
-#replace_in_path $OLD_PLURAL_CLASS $NEW_PLURAL_CLASS
-#replace_in_path $OLD_PLURAL_VARIABLE $NEW_PLURAL_VARIABLE
+class Rsub
 
-replace_in_path $OLD_SINGULAR_CLASS $NEW_SINGULAR_CLASS
-#replace_in_path $OLD_SINGULAR_VARIABLE $NEW_SINGULAR_VARIABLE
-
-
+  def self.run(args)
+    self.new(args).run
+  end
 
 
+  def initialize(args)
 
-#rename_files $OLD_SINGULAR_VARIABLE $NEW_SINGULAR_VARIABLE
-#rename_files $OLD_PLURAL_VARIABLE $NEW_PLURAL_VARIABLE
+    opts = OptionParser.new do |opts|
+      opts.banner = "Do git commit with information from pivotal story"
+      opts.on("-o", "Only specified pattern") do
+        @only = true
+      end
+    end
+    opts.parse!(args)
+
+    @old_name = args.shift
+    @new_name = args.shift
+    @path = args.join(" ")
+
+  end
+
+  def run
+    pairs.each do |from, to|
+      rename_files(from, to)
+      replace(from, to)
+    end
+  end
+
+  protected
+  def pairs
+    @pairs ||= 
+      begin
+        return {@old_name => @new_name} if @only
+        result = {}
+        [:pluralize, :singularize].each do |amount|
+          [:underscore, :camelize].each do |wordcase|
+            result[@old_name.send(wordcase).send(amount)] = @new_name.send(wordcase).send(amount)
+          end
+        end
+        result
+      end
+  end
+
+  def rename_files(from, to)
+    
+    files = exec("find #{@path} -name '#{from}*' ").split("\n")
+    files.each do |old_name|
+      new_name = old_name.gsub(from, to)
+      exec "mv -v #{old_name} #{new_name}"
+    end
+  end
+  
+  def replace(from, to)
+    exec "find #{@path} -type f -exec sed -i 's/#{from}/#{to}/g' {} \\;"
+  end
+
+  def exec(command)
+    puts command
+    `#{command}`
+  end
+end
 
 
+Rsub.run(ARGV)
 
