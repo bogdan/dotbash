@@ -3,11 +3,28 @@ require 'rubygems'
 require 'logger'
 require "net/http"
 
-begin
-  require 'wirble'
-  Wirble.init
-  Wirble.colorize
-rescue LoadError
+if defined?(Ripl)
+  [
+    "ripl/color_error",
+    "ripl/color_streams",
+    "ripl/color_result",
+  ].each do |plugin|
+    begin
+      require plugin
+    rescue LoadError
+    end
+  end
+end
+
+irb_conf = defined?(IRB) && IRB.respond_to?(:conf)
+
+if irb_conf
+  begin
+    require 'wirble'
+    Wirble.init
+    Wirble.colorize
+  rescue LoadError
+  end
 end
 
 begin
@@ -17,7 +34,7 @@ rescue LoadError
 end
 
 
-if defined?(IRB)
+if irb_conf
   IRB.conf[:AUTO_INDENT] = true
   IRB.conf[:SAVE_HISTORY] = 1000
   IRB.conf[:EVAL_HISTORY] = 200
@@ -26,11 +43,15 @@ end
 
 logger = Logger.new(STDOUT)
 
-silence_warnings do
+if self.respond_to?(:silence_warnings)
+  silence_warnings do
+    RAILS_DEFAULT_LOGGER = logger
+  end
+else
   RAILS_DEFAULT_LOGGER = logger
 end
 
-if ENV['RAILS_ENV'] && defined?(IRB)
+if ENV['RAILS_ENV'] && irb_conf
   IRB.conf[:PROMPT][:CUSTOM] = {
     :PROMPT_N => "#{ENV["RAILS_ENV"]} >> ",
     :PROMPT_I => "#{ENV["RAILS_ENV"]} >> ",

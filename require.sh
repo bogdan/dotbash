@@ -36,7 +36,8 @@ apt-get install libxslt1-dev libxml2-dev  curl libreadline-dev libsqlite3-dev
 gem install --no-ri --no-rdoc \
     bundler shelltoad rails rspec-rails  pivotal_shell resque resque-scheduler \
     pg system_timer ruby-debug bond wirble ruby-debug-ide rake \
-    jeweler hirb showoff
+    jeweler hirb showoff \
+    ripl-rails ripl-color_error ripl-color_result
 
 
 vi /etc/hosts
