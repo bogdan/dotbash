@@ -118,7 +118,13 @@ if [ -d /var/data/www/apps/ ] ; then
 fi
 
 export RUBY_GEMS='/var/lib/gems/1.8/gems/'
-   
+
+if [ -f "$HOME/.rubyrc/bogdan.rb" ]; then
+  RUBYLIB="$HOME/.rubyrc"
+  RUBYOPTS="-r bogdan"
+  RUBYOPT="rbogdan"
+  export RUBYLIB RUBYOPT
+fi 
 
 
 

@@ -128,10 +128,20 @@ alias bashps="cd ~/.dotbash/; git push; cd - > /dev/null"
 # Ruby
 #
 
+myrake() 
+{
+    RAKE="rake --trace -r rubygems"
+    if [ -f Gemfile ] ; then
+        bundle exec rake --trace -r rubygems $@
+    else
+        \rake --trace -r rubygems $@
+    fi
+}
 alias gem="sudo gem"
-alias r="rake --trace -r rubygems"
-alias rt="rake -T -r rubygems"
-alias rake="rake --trace -r rubygems"
+alias r="myrake"
+
+alias rt="myrake -T"
+alias rake="myrake"
 alias gi="sudo gem install"
 alias gu="sudo gem uninstall"
 alias gl="gem list"
@@ -148,6 +158,7 @@ alias pci="pivotal commit"
 
 alias be="bundle exec"
 alias bi="bundle install"
+
 #
 # Just sudo
 #
