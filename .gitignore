@@ -3,6 +3,7 @@
 .rake_tasks
 .sass-cache
 .shelltoadrc
+bin/rvm*
 config/mongrel_cluster.yml
 dump.rdb
 tags

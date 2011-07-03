@@ -1,12 +1,10 @@
 #!/bin/sh
 
-apt-get install skype #exclusive
 
 
 
 #Server goodies
 apt-get install vim ttf-inconsolata tig htop nmap zsh curl ctags ack-grep
-
 
 apt-get install zip unzip rar unrar
 
@@ -37,9 +35,10 @@ apt-get install libxslt1-dev libxml2-dev  curl libreadline-dev libsqlite3-dev \
 
 
 gem install --no-ri --no-rdoc \
-    bundler shelltoad rails rspec-rails  pivotal_shell resque resque_scheduler \
-    pg system_timer sunspot_rails ruby-debug bond wirble ruby-debug-ide rake \
-    jeweler hirb showoff
+    bundler shelltoad rails rspec-rails  pivotal_shell resque resque-scheduler \
+    pg system_timer ruby-debug bond wirble ruby-debug-ide rake \
+    jeweler hirb showoff \
+    ripl-rails ripl-color_error ripl-color_result
 
 
 vi /etc/hosts
