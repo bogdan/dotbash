@@ -5,7 +5,7 @@ apt-get install skype #exclusive
 
 
 #Server goodies
-apt-get install vim ttf-inconsolata tig htop nmap zsh curl ctags 
+apt-get install vim ttf-inconsolata tig htop nmap zsh curl ctags ack-grep
 
 
 apt-get install zip unzip rar unrar
