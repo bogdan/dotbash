@@ -4,14 +4,14 @@
 
 
 #Server goodies
-apt-get install vim ttf-inconsolata tig htop nmap zsh curl ctags 
+apt-get install vim ttf-inconsolata tig htop nmap zsh curl ctags ack-grep
 
 apt-get install zip unzip rar unrar
 
 apt-get install skype #exclusive
 
 apt-get install xserver-xorg-input-synaptics-dev kupfer workrave chromium-browser \
-    vlc shutter vim-gnome \
+    vlc shutter vim-gnome wine \
     flashplugin-installer transmission-gtk ttf-mscorefonts-installer
 
 
@@ -30,7 +30,8 @@ etckeeper init
 
 apt-get install ruby rubygems ruby-dev
 
-apt-get install libxslt1-dev libxml2-dev  curl libreadline-dev libsqlite3-dev
+apt-get install libxslt1-dev libxml2-dev  curl libreadline-dev libsqlite3-dev \
+    libmysql-dev
 
 apt-get install libmagick9-dev  #rmagic
 
