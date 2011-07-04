@@ -32,6 +32,7 @@ apt-get install ruby rubygems ruby-dev
 
 apt-get install libxslt1-dev libxml2-dev  curl libreadline-dev libsqlite3-dev
 
+apt-get install libmagick9-dev  #rmagic
 
 gem install --no-ri --no-rdoc \
     bundler shelltoad rails rspec-rails  pivotal_shell resque resque-scheduler \
