@@ -1,11 +1,15 @@
 *.swo
 *.swp
+.pivotalrc
+.pivotal_cache
 .rake_tasks
 .sass-cache
 .shelltoadrc
 bin/rvm*
+config/initializers/local.rb
 config/mongrel_cluster.yml
 dump.rdb
+public/javascripts/local.js
 tags
 vimrc
 vendor/bundle

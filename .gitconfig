@@ -12,7 +12,7 @@
     ps = push
     co = checkout
     lg = log -p
-    lg = log --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%an %cr)%Creset' --abbrev-commit --date=relative
+    lg = log --pretty=tformat:'%Cred%h%Creset - %Cgreen(%an %cr)%Creset\t%C(yellow)%d%Creset%s' --abbrev-commit --date=relative
     wtf = !git-wtf
 
 [merge]
@@ -24,19 +24,19 @@
     p = true
 
 [user]
-    email = agresso@gmail.com
-    name = Bogdan Gusiev
+	email = agresso@gmail.com
+	name = Bogdan Gusiev
 [color]
     status = auto
     diff = auto
     log = auto
 
 [giggle]
-    main-window-maximized = true
-    main-window-geometry = 0x0+0+0
-    history-view-vpane-position = 388
-    main-window-view = HistoryView
-    file-view-vpane-position = 747
+	main-window-maximized = true
+	main-window-geometry = 0x0+0+0
+	history-view-vpane-position = 187
+	main-window-view = HistoryView
+	file-view-vpane-position = 621
 [push]
     default = matching
 [github]
