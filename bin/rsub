@@ -14,14 +14,42 @@ class Rsub
 
 
   def initialize(args)
-
-    opts = OptionParser.new do |opts|
-      opts.banner = "Do git commit with information from pivotal story"
-      opts.on("-o", "Only specified pattern") do
-        @only = true
+    @options = {}
+    @option_parser = OptionParser.new do |opts|
+      opts.banner = "Rename files and pattern in file"
+      opts.on("-a", "--all", "Same as -cusp") do
+        options[:underscore] = true
+        options[:camelize] = true
+        options[:singularize] = true
+        options[:plural] = true
+      end
+      opts.on("-u", "--underscore", "Use underscore conversion for specified pattern") do
+        options[:underscore] = true
+      end
+      opts.on("-c", "--camelcase", "Use camelcase conversion for specified pattern") do
+        options[:camelize] = true
+      end
+      opts.on("-s", "--singular", "Use singular conversion for specified pattern") do
+        options[:singularize] = true
+      end
+      opts.on("-p", "--plural", "Use plural conversion for specified pattern") do
+        options[:plural] = true
+      end
+      opts.on("-f", "--files", "Only rename files") do
+        options[:rename] = true
+        options[:replace] = false unless options.has_key?(:replace)
+      end
+      opts.on("-r", "--replace", "Only replace file content") do
+        options[:replace] = true
+        options[:rename] = false unless options.has_key?(:rename)
       end
     end
-    opts.parse!(args)
+    @option_parser.parse!(args)
+
+    if args.size < 3
+      usage
+      exit 1
+    end
 
     @old_name = args.shift
     @new_name = args.shift
@@ -31,35 +59,39 @@ class Rsub
 
   def run
     pairs.each do |from, to|
-      rename_files(from, to)
-      replace(from, to)
+      rename_files(from, to) if options[:rename]
+      replace(from, to) if options[:replace]
     end
   end
 
   protected
   def pairs
-    @pairs ||= 
-      begin
-        return {@old_name => @new_name} if @only
+    @pairs ||= (
+      if only?
+        {@old_name => @new_name}
+      else
         result = {}
-        [:pluralize, :singularize].each do |amount|
-          [:underscore, :camelize].each do |wordcase|
-            result[@old_name.send(wordcase).send(amount)] = @new_name.send(wordcase).send(amount)
+        [options[:pluralize] && :pluralize, options[:singularize] && :singularize].each do |amount|
+          [options[:underscore] && :underscore, options[:camecize] && :camelize].each do |wordcase|
+            if wordcase && amount
+              result[@old_name.send(wordcase).send(amount)] = @new_name.send(wordcase).send(amount)
+            end
           end
         end
-        result
       end
+    result
+    )
   end
 
   def rename_files(from, to)
-    
+
     files = exec("find #{@path} -name '#{from}*' ").split("\n")
     files.each do |old_name|
       new_name = old_name.gsub(from, to)
       exec "mv -v #{old_name} #{new_name}"
     end
   end
-  
+
   def replace(from, to)
     exec "find #{@path} -type f -exec sed -i 's/#{from}/#{to}/g' {} \\;"
   end
@@ -67,6 +99,22 @@ class Rsub
   def exec(command)
     puts command
     `#{command}`
+  end
+
+  def usage
+    puts <<-EOI
+Usage: rsub [-acusp] <oldname> <newname> <path> [<path> ...]
+
+    EOI
+    @option_parser.display
+  end
+
+  def only?
+    !(options[:underscore] && options[:camelize] && options[:singularize] && options[:plural])
+  end
+
+  def options
+    @options
   end
 end
 
