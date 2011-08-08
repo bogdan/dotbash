@@ -8,6 +8,7 @@
 bin/rvm*
 config/initializers/local.rb
 config/mongrel_cluster.yml
+doc/tags
 dump.rdb
 public/javascripts/local.js
 tags
