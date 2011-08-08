@@ -15,13 +15,17 @@ class Rsub
 
   def initialize(args)
     @options = {}
+
+    options[:replace] = true
+    options[:rename] = true
+
     @option_parser = OptionParser.new do |opts|
       opts.banner = "Rename files and pattern in file"
       opts.on("-a", "--all", "Same as -cusp") do
         options[:underscore] = true
         options[:camelize] = true
         options[:singularize] = true
-        options[:plural] = true
+        options[:pluralize] = true
       end
       opts.on("-u", "--underscore", "Use underscore conversion for specified pattern") do
         options[:underscore] = true
@@ -72,14 +76,14 @@ class Rsub
       else
         result = {}
         [options[:pluralize] && :pluralize, options[:singularize] && :singularize].each do |amount|
-          [options[:underscore] && :underscore, options[:camecize] && :camelize].each do |wordcase|
+          [options[:underscore] && :underscore, options[:camelize] && :camelize].each do |wordcase|
             if wordcase && amount
               result[@old_name.send(wordcase).send(amount)] = @new_name.send(wordcase).send(amount)
             end
           end
         end
+        result
       end
-    result
     )
   end
 
@@ -110,7 +114,7 @@ Usage: rsub [-acusp] <oldname> <newname> <path> [<path> ...]
   end
 
   def only?
-    !(options[:underscore] && options[:camelize] && options[:singularize] && options[:plural])
+    !(options[:underscore] || options[:camelize] || options[:singularize] || options[:plural])
   end
 
   def options
