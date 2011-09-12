@@ -11,6 +11,7 @@ config/mongrel_cluster.yml
 doc/tags
 dump.rdb
 public/javascripts/local.js
+Procfile
 tags
 vimrc
 vendor/bundle

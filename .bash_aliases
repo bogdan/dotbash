@@ -154,7 +154,7 @@ alias csd="cap staging deploy"
 alias cdd="cap dev deploy"
 alias cpd="cap production deploy"
 
-alias pci="pivotal commit"
+alias pci="rvm system exec pivotal commit"
 
 alias be="bundle exec"
 alias bi="bundle install"

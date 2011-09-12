@@ -107,10 +107,11 @@ export BROWSER="chromium-browser"
 # 
 
 if [ -d /home/bogdan/makabu ] ; then
-    export PEROOZAL='/home/bogdan/makabu/railsware/peroozal/repository'
-    export STARTWIRE='/home/bogdan/makabu/railsware/startwire/repository'
-    export MANAGE='/home/bogdan/makabu/railsware/product_manager'
-    export INBIZ='/home/bogdan/makabu/inbiz/repository'
+  export RAILSWARE="/home/bogdan/makabu/railsware"
+    export PEROOZAL="$RAILSWARE/peroozal/repository"
+    export STARTWIRE="$RAILSWARE/startwire/repository"
+    export MANAGE="$RAILSWARE/product_manager"
+    export INBIZ="/home/bogdan/makabu/inbiz/repository"
 fi
 
 if [ -d /var/data/www/apps/ ] ; then 

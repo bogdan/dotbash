@@ -14,7 +14,7 @@ git_prompt_info() {
 
 
 ruby_version() {
-  ruby -v | awk '{print $2 }'
+  type ruby > /dev/null && ruby -v | awk '{print $2 }'
 }
 
 export PS1="%{$fg[green]%}%n@%m %{$fg[blue]%}%~ %{$fg[cyan]%}\$(git_prompt_info)%{$fg[yellow]%}\$(ruby_version)%{$reset_color%} $%\ "

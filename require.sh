@@ -39,7 +39,8 @@ gem install --no-ri --no-rdoc \
     bundler shelltoad rails rspec-rails  pivotal_shell resque resque-scheduler \
     pg system_timer ruby-debug bond wirble ruby-debug-ide rake \
     jeweler hirb showoff \
-    ripl-rails ripl-color_error ripl-color_result
+    ripl-rails ripl-color_error ripl-color_result \
+    gem-ctags
 
 
 vi /etc/hosts
