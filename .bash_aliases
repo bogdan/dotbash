@@ -109,7 +109,14 @@ alias glg='git log --stat --max-count=5'
 compdef _git glg=git-log
 
 alias gpp="git pull && git push"
-alias ppd="gpl && (gps; cap dev deploy)"
+alias ppd="gpl && (gps; cap staging deploy)"
+
+gtr() {
+  branch=`git branch | grep "*" | sed "s/* //g"`
+  git branch --set-upstream $branch origin/$branch
+}
+
+ 
 
 
 
@@ -142,8 +149,8 @@ alias r="myrake"
 
 alias rt="myrake -T"
 alias rake="myrake"
-alias gi="sudo gem install"
-alias gu="sudo gem uninstall"
+alias gi="gem install"
+alias gu="gem uninstall"
 alias gl="gem list"
 alias gs="gem search --remote"
 

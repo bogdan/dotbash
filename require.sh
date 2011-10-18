@@ -2,10 +2,13 @@
 
 
 #Server goodies
-apt-get install vim ttf-inconsolata tig htop nmap zsh curl ctags ack-grep etckeeper
-
+apt-get install vim ttf-inconsolata tig htop nmap zsh curl ctags ack-grep etckeeper git
 vi /etc/etckeeper.conf
 etckeeper init
+
+# Compilers and interpretators
+apt-get install make g++ gcc nodejs
+
 
 apt-get install zip unzip rar unrar
 
@@ -30,7 +33,7 @@ service postgresql restart
 
 apt-get install ruby rubygems ruby-dev
 
-apt-get install libxslt1-dev libxml2-dev  curl libreadline-dev libsqlite3-dev \
+apt-get install libxslt1-dev libxml2-dev  ibreadline-dev libsqlite3-dev \
     
 
 apt-get install libmagick9-dev  #rmagic
@@ -40,7 +43,7 @@ gem install --no-ri --no-rdoc \
     pg system_timer ruby-debug bond wirble ruby-debug-ide rake \
     jeweler hirb showoff \
     ripl-rails ripl-color_error ripl-color_result \
-    gem-ctags
+    gem-ctags mailcatcher jekyll jekyll_ext
 
 
 vi /etc/hosts
