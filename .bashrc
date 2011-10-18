@@ -1,6 +1,5 @@
 #!/bin/sh
 
-[ $ZSH_VERSION ] || (type zsh &> /dev/null && zsh && exit 0)
 
 tty -s && echo "=> ~/.bashrc"
 

@@ -144,7 +144,6 @@ myrake()
         \rake --trace -r rubygems $@
     fi
 }
-alias gem="gem"
 alias r="myrake"
 
 alias rt="myrake -T"
