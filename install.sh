@@ -4,7 +4,7 @@ DOTBASH=$HOME/.dotbash
 
 [ -d $DOTBASH ] || ln -s $DIR $DOTBASH
 
-for FILE_NAME in .bashrc .bash_aliases .irbrc .gemrc .gitconfig .gitignore .vim bin .zshrc .zsh .rubyrc .rdebugrc
+for FILE_NAME in .bashrc .bash_aliases .irbrc .gemrc .gitconfig .gitignore .vim bin .zshrc .zsh .rubyrc .rdebugrc .psqlrc
 do
     FILE_PATH=$DOTBASH/$FILE_NAME
     rm -f $HOME/$FILE_NAME
