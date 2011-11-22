@@ -12,8 +12,6 @@ export HISTCONTROL=ignoredups
 # Time zone
 TZ='Europe/Kiev'; export TZ
 
-# History size
-export HISTSIZE="10000"
 
 # Funny message
 [ -x /usr/games/fortune ] && fortune

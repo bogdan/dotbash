@@ -21,7 +21,7 @@ apt-get install xserver-xorg-input-synaptics-dev kupfer chromium-browser \
 
 apt-get install redis-server 
 
-apt-get install mysql-server libmysql-dev
+apt-get install mysql-server mysql-client libmysqlclient-dev
 
 apt-get install postgresql libpq-dev
 vi /etc/postgresql/9.1/main/pg_hba.conf 

@@ -160,7 +160,7 @@ alias csd="cap staging deploy"
 alias cdd="cap dev deploy"
 alias cpd="cap production deploy"
 
-alias pci="rvm system exec pivotal commit"
+alias pci="rvm system do pivotal commit"
 
 alias be="bundle exec"
 alias bi="bundle install"
@@ -173,3 +173,10 @@ alias service="sudo service"
 alias deployer="sudo -u deployer"
 compdef _sudo deployer=sudo
 alias svi="sudo vi"
+
+
+gvim()
+{
+  (unset GEM_PATH GEM_HOME; command gvim "$@")
+}
+alias xfce4-terminal="xfce4-terminal --hide-menubar"
