@@ -1,8 +1,7 @@
-DIR=$(dirname $0)
 
 DOTBASH=$HOME/.dotbash
 
-[ -d $DOTBASH ] || ln -s $DIR $DOTBASH
+[ -d $DOTBASH ] || ln -s `pwd` $DOTBASH
 
 for FILE_NAME in .bashrc .bash_aliases .irbrc .gemrc .gitconfig .gitignore .vim bin .zshrc .zsh .rubyrc .rdebugrc .psqlrc
 do
