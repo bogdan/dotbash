@@ -73,6 +73,13 @@ alias ....="cd ../../../"
 
 alias re="source ~/.bashrc"
 
+
+smtpauth() {
+  COMMAND="print encode_base64("\\000$1\\000$2")"
+  echo $COMMAND
+  perl -MMIME::Base64 -e '$COMMAND'
+}
+
 #
 # Git
 #
