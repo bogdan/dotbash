@@ -108,6 +108,13 @@ compdef _git gcp=git-cherry-pick
 alias glg='git log --stat --max-count=5'
 compdef _git glg=git-log
 
+gac() {
+  heading=`git diff --stat --cached | head -1`
+  message=`git diff --cached --no-color`
+  git commit -m "$heading
+
+$message"
+}
 alias gpp="git pull && git push"
 alias ppd="gpl && (gps; cap staging deploy)"
 

@@ -59,10 +59,6 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$PATH:$HOME/bin"
 fi
 
-# Java rc
-export JDK_HOME='/usr/lib/jvm/default-java'
-export JAVA_HOME="$JDK_HOME" 
-export CLASSPATH=":$HOME/test/java:.:"
 
 
 
