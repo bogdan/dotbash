@@ -44,6 +44,10 @@
     token = 02c6e4f23ac6b62bdd4b0d0b9bf3b76e
 
 
+[url "git@github.com:bogdan/"]
+    insteadOf = "ghb:"
+    pushInsteadOf = "githubbogdan:"
+    pushInsteadOf = "git://github.com:bogdan/"
 [url "git@github.com:"]
     insteadOf = "gh:"
     pushInsteadOf = "github:"

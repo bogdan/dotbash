@@ -183,8 +183,8 @@ compdef _sudo deployer=sudo
 alias svi="sudo vi"
 
 
-gvim()
-{
-  (unset GEM_PATH GEM_HOME; command gvim "$@")
-}
+#gvim()
+#{
+  #(unset GEM_PATH GEM_HOME; command gvim "$@")
+#}
 alias xfce4-terminal="xfce4-terminal --hide-menubar"
