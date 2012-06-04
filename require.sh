@@ -27,12 +27,12 @@ apt-get install postgresql libpq-dev
 vi /etc/postgresql/9.1/main/pg_hba.conf 
 service postgresql restart
 
+apt-get install libxslt1-dev libxml2-dev  libreadline-dev libsqlite3-dev libyaml-dev
 bash < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer)
 
 
 apt-get install ruby rubygems ruby-dev
 
-apt-get install libxslt1-dev libxml2-dev  libreadline-dev libsqlite3-dev \
     
 
 apt-get install libmagick9-dev  #rmagic

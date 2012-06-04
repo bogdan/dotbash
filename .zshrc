@@ -21,3 +21,5 @@ unset i
 
 
 PATH="$PATH:`git --exec-path`"
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

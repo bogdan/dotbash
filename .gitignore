@@ -6,6 +6,8 @@
 .sass-cache
 .shelltoadrc
 bin/rvm*
+bin/phantomjs
+config/initializers/bogdan.rb
 config/initializers/local.rb
 config/mongrel_cluster.yml
 doc/tags
