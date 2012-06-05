@@ -39,7 +39,7 @@ apt-get install libmagick9-dev  #rmagic
 
 gem install --no-ri --no-rdoc \
     bundler shelltoad rails rspec-rails  pivotal_shell resque resque-scheduler \
-    pg system_timer ruby-debug bond wirble ruby-debug-ide rake \
+    pg system_timer debugger bond wirble rake \
     jeweler hirb showoff \
     ripl-rails ripl-color_error ripl-color_result \
     gem-ctags mailcatcher jekyll jekyll_ext

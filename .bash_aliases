@@ -173,6 +173,8 @@ alias pci="rvm system do pivotal commit"
 alias be="bundle exec"
 alias bi="bundle install"
 
+alias rsp="bundle exec rspec --format Fuubar"
+
 #
 # Just sudo
 #
