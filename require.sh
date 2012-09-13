@@ -13,7 +13,7 @@ apt-get install zip unzip rar unrar
 apt-get install skype #exclusive
 
 apt-get install xserver-xorg-input-synaptics-dev kupfer chromium-browser \
-    vlc shutter vim-gnome wine \
+    vlc shutter vim-gtk wine \
     openjdk-6-jdk \
     flashplugin-installer transmission-gtk ttf-mscorefonts-installer
 
@@ -39,9 +39,12 @@ apt-get install libmagick9-dev  #rmagic
 
 gem install --no-ri --no-rdoc \
     bundler shelltoad rails rspec-rails  pivotal_shell resque resque-scheduler \
-    pg system_timer debugger bond wirble rake \
+    pg debugger bond wirble rake \
     jeweler hirb showoff \
     ripl-rails ripl-color_error ripl-color_result \
-    gem-ctags mailcatcher jekyll jekyll_ext
+    gem-ctags mailcatcher jekyll jekyll_ext \
+    heroku
 
 
+ssh-keygen -t rsa
+heroku keys:add ~/.ssh/id_rsa.pub
