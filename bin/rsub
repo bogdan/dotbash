@@ -97,7 +97,19 @@ class Rsub
   end
 
   def replace(from, to)
-    exec "find #{@path} -type f -exec sed -i 's/#{from}/#{to}/g' {} \\;"
+    exec "find #{@path} -type f -exec #{sed_command} 's/#{from}/#{to}/g' {} \\;"
+  end
+
+  def sed_command
+    [
+      "sed",
+      "-i",
+      macos? ? "''" : "",
+    ].join(" ")
+  end
+
+  def macos?
+    RUBY_PLATFORM.include?("darwin")
   end
 
   def exec(command)
