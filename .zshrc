@@ -1,7 +1,10 @@
 #!/bin/zsh
 
-[ -f ~/.bashrc ] && source ~/.bashrc
 autoload -U colors && colors
+autoload -U compinit && compinit
+autoload -U compdef
+
+[ -f ~/.bashrc ] && source ~/.bashrc
 
 
 alias re="source ~/.zshrc"

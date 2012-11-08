@@ -61,6 +61,7 @@ alias koi2utf="iconv -cf koi8-r -t utf8"
 
 # LS
 ls --color > /dev/null 2> /dev/null && COLOR="--color"
+ls -G > /dev/null 2> /dev/null && COLOR="-G"
 alias ls='ls -F $COLOR'
 alias ll='ls $COLOR -hFl'
 alias la='ls $COLOR -Fa'
@@ -183,6 +184,11 @@ alias service="sudo service"
 alias deployer="sudo -u deployer"
 compdef _sudo deployer=sudo
 alias svi="sudo vi"
+
+if [ -d ~/makabu/allan ] ; then
+  alias curebit="cd ~/makabu/allan/curebit-marketing; git status"
+  alias devauc="cd ~/makabu/allan/devauc; git status"
+fi
 
 
 #gvim()
