@@ -15,6 +15,7 @@ alias g='grep -r --color=auto -i'
 alias vg='grep --color=auto -iv'
 alias mloop="sudo mount -o loop"
 alias psg="ps aux | grep --color=auto -i"
+type ack > /dev/null 2> /dev/null && alias ack-grep="ack"
 alias grey="convert -fx \(r+g+b\)/3"
 alias x="chmod a+x"
 compdef _chmod x=chmod a+x
@@ -110,6 +111,8 @@ compdef _git gcp=git-cherry-pick
 alias glg='git log --stat --max-count=5'
 compdef _git glg=git-log
 
+alias glp="git log -p"
+
 gac() {
   heading=`git diff --stat --cached | head -1`
   message=`git diff --cached --no-color`
@@ -156,6 +159,8 @@ myrake()
 alias r="myrake"
 
 alias rt="myrake -T"
+alias rtg="myrake -T | grep"
+
 alias rake="myrake"
 alias gi="gem install"
 alias gu="gem uninstall"
@@ -164,6 +169,7 @@ alias gs="gem search --remote"
 
 alias jgem="sudo jruby -S gem"
 alias jr="jruby -S rake"
+alias unit="ruby -I'lib:test'"
 
 alias csd="cap staging deploy"
 alias cdd="cap dev deploy"
