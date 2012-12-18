@@ -1,3 +1,3 @@
 git clone git@github.com:bogdan/dotbash.git ~/.dotbash
-cd .dotbash
+cd /home/bogdan/.dotbash
 ./install.sh
