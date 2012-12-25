@@ -1,6 +1,6 @@
 USERHOME=/home/bogdan
 
-sudo apt-get install zsh curl git-core
+sudo apt-get install --yes zsh curl git-core
 sudo useradd -d $USERHOME --groups users,sudo -m -s `type -p zsh` bogdan 
 sudo mkdir -p $USERHOME
 sudo mkdir -p $USERHOME/.ssh
