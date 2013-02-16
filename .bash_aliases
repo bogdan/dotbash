@@ -12,6 +12,7 @@ alias mc="mc --colors normal=cyan,default:marked=green,default:directory=brown,d
 alias locate='locate -i'
 alias j='jobs'
 alias g='grep -r --color=auto -i'
+type ack > /dev/null || alias ack="ack-grep"
 alias vg='grep --color=auto -iv'
 alias mloop="sudo mount -o loop"
 alias psg="ps aux | grep --color=auto -i"
@@ -93,6 +94,7 @@ compdef _git gp=git-push
 alias gdf="git diff --color"
 compdef _git gdf=git-diff
 alias gci='git commit -v'
+alias gsi='git storyid'
 compdef _git gc=git-commit
 alias gca='git commit -v -a'
 compdef _git gca=git-commit
@@ -156,6 +158,7 @@ alias r="myrake"
 
 alias rt="myrake -T"
 alias rake="myrake"
+alias rrg="myrake routes | g"
 alias gi="gem install"
 alias gu="gem uninstall"
 alias gl="gem list"
