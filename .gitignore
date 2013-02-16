@@ -17,4 +17,4 @@ Procfile
 tags
 vimrc
 vendor/bundle
-bogdan*
+tmp-*
