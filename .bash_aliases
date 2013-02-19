@@ -48,10 +48,8 @@ alias gh="history | grep --color=auto -i"
 alias h='htop'
 
 # Nice output on linux
-if [ "`uname -s`" = "Linux" ] ; then
-	alias du="du -h"
-	alias df="df -h"
-fi
+alias du="du -h"
+alias df="df -h"
 
 
 # ICONV
@@ -110,6 +108,7 @@ alias gcp='git cherry-pick'
 compdef _git gcp=git-cherry-pick
 alias glg='git log --stat --max-count=5'
 compdef _git glg=git-log
+alias gsi="git storyid"
 
 alias glp="git log -p"
 
@@ -160,6 +159,7 @@ alias r="myrake"
 
 alias rt="myrake -T"
 alias rtg="myrake -T | grep"
+alias rrg="rake routes | grep"
 
 alias rake="myrake"
 alias gi="gem install"
