@@ -1,5 +1,5 @@
 
-USERHOME=/home/bogdan
+USERHOME=/Users/bogdan
 DOTBASH=$USERHOME/.dotbash
 
 [ -d $DOTBASH ] || ln -s `pwd` $DOTBASH
