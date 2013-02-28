@@ -1,7 +1,7 @@
 #!/bin/sh
 
 
-tty -s && echo "=> ~/.bashrc"
+#tty -s && echo "=> ~/.bashrc"
 
 # If not running interactively, don't do anything
 export HISTCONTROL=ignoredups
@@ -71,16 +71,12 @@ fi
 # Editor
 #
  
-if [ $DISPLAY ] ; then
-	if [ "`which gvim`" ] ; then
-	       	EDITOR="gvim"
-	elif [ "`which vi`" ] && [ $TERM ] ; then
-		EDITOR="$TERM -x vi"
-	fi
-else
-	if [ "`which vi`" ] ; then
-		EDITOR="vi"
-	fi
+if [ $DISPLAY ] && which gvim > /dev/null ; then
+  EDITOR="gvim"
+elif [ $DISPLAY ] && which mvim > /dev/null ; then
+  EDITOR="mvim"
+elif which vi > /dev/null ; then
+  EDITOR="vi"
 fi
 export EDITOR
 
@@ -91,7 +87,12 @@ elif [ "`which more`" ] ; then
 fi
 export PAGER
 
-export BROWSER="chromium-browser"
+if which chromium-browser > /dev/null ; then 
+  BROWSER="chromium-browser"
+elif [ -f /Applications/Google\ Chrome.app ] ; then
+  BROWSER="open /Applications/Google\ Chrome.app"
+fi
+export BROWSER
 
 
 

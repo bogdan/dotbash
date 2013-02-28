@@ -18,3 +18,4 @@ tags
 vimrc
 vendor/bundle
 tmp-*
+.DS_Store

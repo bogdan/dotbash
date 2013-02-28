@@ -1,7 +1,7 @@
 [core]
     ignorecase = true
     editor = vim
-    excludesfile = /home/bogdan/.gitignore
+    excludesfile = /Users/bogdan/.gitignore
 [diff]
     color = true
     command = meld

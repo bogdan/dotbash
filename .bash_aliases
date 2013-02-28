@@ -16,6 +16,7 @@ type ack > /dev/null || alias ack="ack-grep"
 alias vg='grep --color=auto -iv'
 alias mloop="sudo mount -o loop"
 alias psg="ps aux | grep --color=auto -i"
+type ack > /dev/null 2> /dev/null && alias ack-grep="ack"
 alias grey="convert -fx \(r+g+b\)/3"
 alias x="chmod a+x"
 compdef _chmod x=chmod a+x
@@ -48,10 +49,8 @@ alias gh="history | grep --color=auto -i"
 alias h='htop'
 
 # Nice output on linux
-if [ "`uname -s`" = "Linux" ] ; then
-	alias du="du -h"
-	alias df="df -h"
-fi
+alias du="du -h"
+alias df="df -h"
 
 
 # ICONV
@@ -61,10 +60,11 @@ alias utf2koi="iconv -cf utf8 -t koi8-r"
 alias koi2utf="iconv -cf koi8-r -t utf8"
 
 # LS
+ls -G > /dev/null 2> /dev/null && COLOR="-G"
 ls --color > /dev/null 2> /dev/null && COLOR="--color"
-alias ls='ls -F $COLOR'
-alias ll='ls $COLOR -hFl'
-alias la='ls $COLOR -Fa'
+alias ls="ls -F $COLOR"
+alias ll="ls $COLOR -hFl"
+alias la="ls $COLOR -Fa"
 LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.flac=01;35:*.mp3=01;35:*.mpc=01;35:*.ogg=01;35:*.wav=01;35:';
 export LS_COLORS
 
@@ -110,6 +110,9 @@ alias gcp='git cherry-pick'
 compdef _git gcp=git-cherry-pick
 alias glg='git log --stat --max-count=5'
 compdef _git glg=git-log
+alias gsi="git storyid"
+
+alias glp="git log -p"
 
 gac() {
   heading=`git diff --stat --cached | head -1`
@@ -157,6 +160,9 @@ myrake()
 alias r="myrake"
 
 alias rt="myrake -T"
+alias rtg="myrake -T | grep"
+alias rrg="rake routes | grep"
+
 alias rake="myrake"
 alias rrg="myrake routes | g"
 alias gi="gem install"
@@ -166,6 +172,7 @@ alias gs="gem search --remote"
 
 alias jgem="sudo jruby -S gem"
 alias jr="jruby -S rake"
+alias unit="ruby -I'lib:test'"
 
 alias csd="cap staging deploy"
 alias cdd="cap dev deploy"
@@ -186,6 +193,11 @@ alias service="sudo service"
 alias deployer="sudo -u deployer"
 compdef _sudo deployer=sudo
 alias svi="sudo vi"
+
+if [ -d ~/makabu/allan ] ; then
+  alias curebit="cd ~/makabu/allan/curebit-marketing; git status"
+  alias devauc="cd ~/makabu/allan/devauc; git status"
+fi
 
 
 #gvim()
