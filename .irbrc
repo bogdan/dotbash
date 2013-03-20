@@ -77,3 +77,21 @@ end
 if Net::HTTP.respond_to?(:logger=)
   Net::HTTP.logger = RAILS_DEFAULT_LOGGER
 end
+
+def watch(seconds = 1)
+  loop do
+    result = yield
+    system('reset')
+    puts result.to_s
+    sleep(2)
+  end
+end
+
+def capture_stdout
+  out = StringIO.new
+  $stdout = out
+  yield
+  return out
+ensure
+  $stdout = STDOUT
+end
