@@ -1,5 +1,10 @@
 
-USERHOME=/Users/bogdan
+if [ -d /Users ] ; then
+  USERHOME=/Users/bogdan
+else
+  USERHOME=/home/bogdan
+fi
+
 DOTBASH=$USERHOME/.dotbash
 
 [ -d $DOTBASH ] || ln -s `pwd` $DOTBASH
