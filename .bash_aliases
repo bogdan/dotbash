@@ -111,6 +111,9 @@ compdef _git gcp=git-cherry-pick
 alias glg='git log --stat --max-count=5'
 compdef _git glg=git-log
 alias gsi="git storyid"
+alias gsh="git stash"
+alias gsp="git stash pop"
+alias grs="git reset"
 
 alias glp="git log -p"
 
