@@ -3,6 +3,7 @@
 
 #tty -s && echo "=> ~/.bashrc"
 
+source ~/.dotbash/bin/z.sh
 # If not running interactively, don't do anything
 export HISTCONTROL=ignoredups
 
@@ -100,13 +101,6 @@ export BROWSER
 # Places
 # 
 
-if [ -d /home/bogdan/makabu ] ; then
-  export RAILSWARE="/home/bogdan/makabu/railsware"
-    export PEROOZAL="$RAILSWARE/peroozal/repository"
-    export STARTWIRE="$RAILSWARE/startwire/repository"
-    export MANAGE="$RAILSWARE/product_manager"
-    export INBIZ="/home/bogdan/makabu/inbiz/repository"
-fi
 
 if [ -d /var/data/www/apps/ ] ; then 
     export STARTWIRE="/var/data/www/apps/startwire/current"

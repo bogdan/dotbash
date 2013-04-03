@@ -36,7 +36,7 @@ end
 
 if irb_conf
   IRB.conf[:AUTO_INDENT] = true
-  IRB.conf[:SAVE_HISTORY] = 1000
+  IRB.conf[:SAVE_HISTORY] = 1000000
   IRB.conf[:EVAL_HISTORY] = 200
 end
 
@@ -70,8 +70,13 @@ if defined?(Rails) && Rails.respond_to?(:logger=)
   Rails.logger = RAILS_DEFAULT_LOGGER
 end
 
-if defined?(ActiveRecord) && ActiveRecord::Base.respond_to?(:logger=)
-  ActiveRecord::Base.logger = Rails.logger
+if defined?(ActiveRecord) 
+  if ActiveRecord::Base.respond_to?(:logger=)
+    ActiveRecord::Base.logger = Rails.logger
+  end
+end
+def sql(query)
+  ActiveRecord::Base.connection.select_all(query)
 end
 
 if Net::HTTP.respond_to?(:logger=)
