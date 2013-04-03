@@ -17,5 +17,5 @@ Procfile
 tags
 vimrc
 vendor/bundle
-#bogdan*
+tmp-*
 .DS_Store
