@@ -45,10 +45,6 @@ if [ "$BASH_VERSION" ] ; then
 	shopt -s checkwinsize
 fi
 
-# ksh specific
-if [ $SHELL = "/bin/ksh" ] ; then
-	set -o vi -o viraw
-fi
 export PS1
 
 

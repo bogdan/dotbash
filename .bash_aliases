@@ -114,6 +114,7 @@ alias gsi="git storyid"
 alias gsh="git stash"
 alias gsp="git stash pop"
 alias grs="git reset"
+alias gdo="git commit -m 'do'"
 
 alias glp="git log -p"
 

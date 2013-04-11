@@ -90,11 +90,10 @@ def capture_stdout
   out = StringIO.new
   $stdout = out
   yield
-  return out
+  return out.string
 ensure
-  $stdout = STDOUT
+  $stdout = ::STDOUT
 end
-
 
 
 class Object
@@ -151,10 +150,6 @@ def disable_hirb
   else
     puts "hirb is not loaded"
   end
-end
-
-def efind(email)
-  User.find_by_email email
 end
 
 
