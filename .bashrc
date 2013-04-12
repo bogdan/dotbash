@@ -1,7 +1,7 @@
 #!/bin/sh
 
 
-#tty -s && echo "=> ~/.bashrc"
+[[ $- == *i* ]] || return
 
 source ~/.dotbash/bin/z.sh
 # If not running interactively, don't do anything
@@ -114,8 +114,6 @@ fi
 
 
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
-
-
 
 
 export RET="RAILS_ENV=test"
