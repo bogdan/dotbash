@@ -12,16 +12,16 @@ alias mc="mc --colors normal=cyan,default:marked=green,default:directory=brown,d
 alias locate='locate -i'
 alias j='jobs'
 alias g='grep -r --color=auto -i'
-type ack > /dev/null || alias ack="ack-grep"
+type ack > /dev/null 2> /dev/null || alias ack="ack-grep"
+type ack > /dev/null 2> /dev/null && alias ack-grep="ack"
 alias vg='grep --color=auto -iv'
 alias mloop="sudo mount -o loop"
 alias psg="ps aux | grep --color=auto -i"
-type ack > /dev/null 2> /dev/null && alias ack-grep="ack"
 alias grey="convert -fx \(r+g+b\)/3"
 alias x="chmod a+x"
-compdef _chmod x=chmod a+x
+#compdef _chmod x=chmod a+x
 alias rw="chmod u+rw"
-compdef _chmod rw=chmod a+x
+#compdef _chmod rw=chmod a+x
 alias ymd="date +%g.%m.%d"
 alias dtail="dmesg | tail -n 20"
 
@@ -40,9 +40,9 @@ alias ag="sudo apt-get -V"
 alias ai="sudo apt-get -V install"
 alias ac="apt-cache"
 alias ash="apt-cache show" 
-compdef _apt-cache ash=apt-cache show
+#compdef _apt-cache ash=apt-cache show
 alias as="apt-cache search"
-compdef _apt-cache as=apt-cache search
+#compdef _apt-cache as=apt-cache search
 
 alias gh="history | grep --color=auto -i"
 
@@ -80,36 +80,36 @@ alias re="source ~/.bashrc"
 #
 
 alias gad="git add"
-compdef _git gad=git-add
+#compdef _git gad=git-add
 
 
 alias gst='git status'
-compdef _git gst=git-status
+#compdef _git gst=git-status
 alias gpl='git pull'
-compdef _git gl=git-pull
+#compdef _git gl=git-pull
 alias gup='git fetch && git rebase'
-compdef _git gup=git-fetch
+#compdef _git gup=git-fetch
 alias gps='git push'
-compdef _git gp=git-push
+#compdef _git gp=git-push
 alias gdf="git diff --color"
-compdef _git gdf=git-diff
+#compdef _git gdf=git-diff
 alias gci='git commit -v'
 alias gsi='git storyid'
-compdef _git gc=git-commit
+#compdef _git gc=git-commit
 alias gca='git commit -v -a'
-compdef _git gca=git-commit
+#compdef _git gca=git-commit
 alias gco='git checkout'
-compdef _git gco=git-checkout
+#compdef _git gco=git-checkout
 alias gbr='git branch'
-compdef _git gb=git-branch
+#compdef _git gb=git-branch
 alias gba='git branch -a'
-compdef _git gba=git-branch
+#compdef _git gba=git-branch
 alias gcount='git shortlog -sn'
-compdef gcount=git
+#compdef gcount=git
 alias gcp='git cherry-pick'
-compdef _git gcp=git-cherry-pick
+#compdef _git gcp=git-cherry-pick
 alias glg='git log --stat --max-count=5'
-compdef _git glg=git-log
+#compdef _git glg=git-log
 alias gsi="git storyid"
 alias gsh="git stash"
 alias gsp="git stash pop"
@@ -143,7 +143,7 @@ bashgit() {
     cd - > /dev/null
     return true
 }
-compdef _git bashgit=git
+#compdef _git bashgit=git
 alias bashpl="cd ~/.dotbash/; git pull; cd - > /dev/null"
 alias bashps="cd ~/.dotbash/; git push; cd - > /dev/null"
 
@@ -177,6 +177,8 @@ alias gs="gem search --remote"
 alias jgem="sudo jruby -S gem"
 alias jr="jruby -S rake"
 alias unit="ruby -I'lib:test'"
+alias pt='parallel_test'
+alias ptt='parallel_test test'
 
 alias csd="cap staging deploy"
 alias cdd="cap dev deploy"
@@ -195,7 +197,7 @@ alias rsp="bundle exec rspec --format Fuubar --drb"
 
 alias service="sudo service"
 alias deployer="sudo -u deployer"
-compdef _sudo deployer=sudo
+#compdef _sudo deployer=sudo
 alias svi="sudo vi"
 
 if [ -d ~/makabu/allan ] ; then

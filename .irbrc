@@ -131,8 +131,10 @@ def quiet_logger
 end
 
 def set_logger_to(logger)
-  ActiveRecord::Base.logger = logger
-  ActiveRecord::Base.clear_reloadable_connections!
+  if defined?(ActiveRecord)
+    ActiveRecord::Base.logger = logger
+    ActiveRecord::Base.clear_reloadable_connections!
+  end
 end
 
 def enable_hirb
@@ -153,6 +155,4 @@ def disable_hirb
 end
 
 
-if defined?(ActiveRecord)
-  IRB.conf[:IRB_RC] = Proc.new { loud_logger }
-end
+loud_logger
