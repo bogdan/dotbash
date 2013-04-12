@@ -115,6 +115,7 @@ alias gsh="git stash"
 alias gsp="git stash pop"
 alias grs="git reset"
 alias gdo="git commit -m 'do'"
+alias ggo="git add . && git commit -m 'do' && git push"
 
 alias glp="git log -p"
 

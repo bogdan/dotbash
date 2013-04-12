@@ -49,19 +49,9 @@ export PS1
 
 
 
-if [ -d "/var/lib/gems/1.8/bin" ] ; then
-    PATH="$PATH:/var/lib/gems/1.8/bin"
-fi
 if [ -d "$HOME/bin" ] ; then
     PATH="$PATH:$HOME/bin"
 fi
-
-
-
-
-# hosts
-
-
 
 
 #
@@ -96,13 +86,6 @@ export BROWSER
 #
 # Places
 # 
-
-
-if [ -d /var/data/www/apps/ ] ; then 
-    export STARTWIRE="/var/data/www/apps/startwire/current"
-fi
-
-export RUBY_GEMS='/var/lib/gems/1.8/gems/'
 
 if [ -f "$HOME/.rubyrc/bogdan.rb" ]; then
   RUBYLIB="$HOME/.rubyrc"
