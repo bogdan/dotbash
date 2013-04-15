@@ -166,7 +166,7 @@ class Array
 
 
     (instance_methods + private_instance_methods).each do |method|
-      unless method.to_s =~ /^(__|instance_eval|instance_exec)/
+      unless method.to_s =~ /^(__|instance_eval|instance_exec|initialize)/
         undef_method method
       end
     end
@@ -188,6 +188,7 @@ class Array
       self
     end
   end
+
   def mp(&block)
     apply_recorder(:map, &block)
   end
@@ -196,13 +197,14 @@ class Array
     apply_recorder(:select, &block)
   end
 
+  def rj(&block)
+    apply_recorder(:reject, &block)
+  end
+
   def apply_recorder(method, &block)
-    commands = Recorder.run(&block)
-    result = self
-    commands.each do |command|
-      result = result.send(method, &command)
+    send(method) do |object|
+      object.instance_eval(&block)
     end
-    result
   end
 end
 
