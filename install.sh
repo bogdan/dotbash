@@ -11,7 +11,7 @@ DOTBASH=$USERHOME/.dotbash
 
 for FILE_NAME in .bashrc .bash_aliases .irbrc .gemrc \
   .gitconfig .gitignore .vim bin .zshrc .zsh .rubyrc \
-  .rdebugrc .psqlrc .pryrc .tigrc .screenrc
+  .rdebugrc .psqlrc .pryrc .tigrc .screenrc .tmux.conf
 do
     FILE_PATH=$DOTBASH/$FILE_NAME
     rm -f $USERHOME/$FILE_NAME
