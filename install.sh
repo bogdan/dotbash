@@ -20,4 +20,4 @@ done
 
 
 touch $USERHOME/.irb_history
-chown a+rw $USERHOME/.irb_history
+chmod a+rw $USERHOME/.irb_history
