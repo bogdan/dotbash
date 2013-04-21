@@ -155,4 +155,56 @@ def disable_hirb
 end
 
 
+def r!
+  reload!
+end
+
 loud_logger
+
+class Array
+  class Recorder
+
+
+    (instance_methods + private_instance_methods).each do |method|
+      unless method.to_s =~ /^(__|instance_eval|instance_exec|initialize)/
+        undef_method method
+      end
+    end
+
+    def self.run(&block)
+      new(&block)._commands
+    end
+
+
+    def initialize(&block)
+      instance_eval(&block)
+    end
+
+    def _commands
+      @_commands ||= []
+    end
+    def method_missing(meth, *args, &blk)
+      _commands  << meth.to_sym
+      self
+    end
+  end
+
+  def mp(&block)
+    apply_recorder(:map, &block)
+  end
+
+  def sl(&block)
+    apply_recorder(:select, &block)
+  end
+
+  def rj(&block)
+    apply_recorder(:reject, &block)
+  end
+
+  def apply_recorder(method, &block)
+    send(method) do |object|
+      object.instance_eval(&block)
+    end
+  end
+end
+

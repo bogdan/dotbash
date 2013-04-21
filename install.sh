@@ -18,3 +18,6 @@ do
     ln -s $FILE_PATH $USERHOME
 done
 
+
+touch $USERHOME/.irb_history
+chmod a+rw $USERHOME/.irb_history
