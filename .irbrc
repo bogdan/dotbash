@@ -3,20 +3,8 @@ require 'rubygems'
 require 'logger'
 require "net/http"
 
-if defined?(Ripl)
-  [
-    "ripl/color_error",
-    "ripl/color_streams",
-    "ripl/color_result",
-  ].each do |plugin|
-    begin
-      require plugin
-    rescue LoadError
-    end
-  end
-end
-
-irb_conf = defined?(IRB) && IRB.respond_to?(:conf)
+irb_conf = defined?(::IRB) && IRB.respond_to?(:conf)
+load File.dirname(__FILE__) + "/.rubyrc/bogdan.rb"
 
 if irb_conf
   begin
@@ -73,8 +61,8 @@ def sql(query)
   ActiveRecord::Base.connection.select_all(query)
 end
 
-if Net::HTTP.respond_to?(:logger=)
-  Net::HTTP.logger = RAILS_DEFAULT_LOGGER
+if defined?(HttpLogger)
+  HttpLogger.logger = RAILS_DEFAULT_LOGGER
 end
 
 def watch(seconds = 1)
@@ -166,7 +154,7 @@ class Array
 
 
     (instance_methods + private_instance_methods).each do |method|
-      unless method.to_s =~ /^(__|instance_eval|instance_exec|initialize)/
+      unless method.to_s =~ /^(__|instance_eval|instance_exec|initialize|object_id)/
         undef_method method
       end
     end
