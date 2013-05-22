@@ -147,6 +147,15 @@ def r!
   reload!
 end
 
+def ex
+  ex = nil
+  begin
+    yield
+  rescue => ex
+  end
+  ex
+end
+
 loud_logger
 
 class Array

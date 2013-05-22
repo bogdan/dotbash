@@ -21,3 +21,6 @@ done
 
 touch $USERHOME/.irb_history
 chmod a+rw $USERHOME/.irb_history
+source $USERHOME/.bashrc
+source $USERHOME/.bashrc
+
