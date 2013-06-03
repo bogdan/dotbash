@@ -19,6 +19,7 @@ do
 done
 
 
+mkdir -p $USERHOME/tmp
 touch $USERHOME/.irb_history
 chmod a+rw $USERHOME/.irb_history
 source $USERHOME/.bashrc

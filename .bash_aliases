@@ -182,6 +182,7 @@ alias jr="jruby -S rake"
 alias unit="ruby -I'lib:test'"
 alias pt='parallel_test'
 alias ptt='parallel_test test'
+alias pts="parallel_rspec spec"
 
 alias csd="cap staging deploy"
 alias cdd="cap dev deploy"

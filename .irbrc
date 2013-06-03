@@ -198,6 +198,14 @@ class Array
     apply_recorder(:reject, &block)
   end
 
+  def fl(&block)
+    flatten
+  end
+
+  def mpfl(&block)
+    mp(&block).fl
+  end
+
   def apply_recorder(method, &block)
     send(method) do |object|
       object.instance_eval(&block)
