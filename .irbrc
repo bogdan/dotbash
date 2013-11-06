@@ -23,14 +23,14 @@ if irb_conf
 end
 
 
-logger = Logger.new(STDOUT)
+STDLOGGER = Logger.new(STDOUT)
 
 if self.respond_to?(:silence_warnings)
   silence_warnings do
-    RAILS_DEFAULT_LOGGER = logger
+    RAILS_DEFAULT_LOGGER = STDLOGGER
   end
 else
-  RAILS_DEFAULT_LOGGER = logger
+  RAILS_DEFAULT_LOGGER = STDLOGGER
 end
 
 if ENV['RAILS_ENV'] && irb_conf
@@ -184,6 +184,10 @@ class Array
       _commands  << meth.to_sym
       self
     end
+  end
+
+  def cp
+    compact
   end
 
   def mp(&block)
