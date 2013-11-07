@@ -24,6 +24,9 @@ end
 
 
 STDLOGGER = Logger.new(STDOUT)
+STDLOGGER.formatter = proc do |_, _, _, message|
+  message + "\n"
+end
 
 if self.respond_to?(:silence_warnings)
   silence_warnings do
@@ -52,11 +55,6 @@ if defined?(Rails) && Rails.respond_to?(:logger=)
   Rails.logger = RAILS_DEFAULT_LOGGER
 end
 
-if defined?(ActiveRecord) 
-  if ActiveRecord::Base.respond_to?(:logger=)
-    ActiveRecord::Base.logger = Rails.logger
-  end
-end
 def sql(query)
   ActiveRecord::Base.connection.select_all(query)
 end
@@ -110,7 +108,7 @@ require 'logger'
 
 def loud_logger
   enable_hirb
-  set_logger_to Logger.new(STDOUT)
+  set_logger_to STDLOGGER
 end
 
 def quiet_logger
