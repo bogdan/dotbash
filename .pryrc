@@ -42,10 +42,20 @@ if File.exist?(rails) && ENV['SKIP_RAILS'].nil?
   if Rails.version[0..0] == "2"
     require 'console_app'
     require 'console_with_helpers'
-  elsif Rails.version[0..0] == "3"
+  else
     require 'rails/console/app'
     require 'rails/console/helpers'
-  else
-    warn "[WARN] cannot load Rails console commands (Not on Rails2 or Rails3?)"
+    extend Rails::ConsoleMethods
   end
+end
+
+Pry::Commands.command(/^$/, "repeat last command") do
+  _pry_.run_command Pry.history.to_a.last  
+end  
+
+if defined?(PryDebugger)
+  Pry.commands.alias_command 'c', 'continue'
+  Pry.commands.alias_command 's', 'step'
+  Pry.commands.alias_command 'n', 'next'
+  Pry.commands.alias_command 'f', 'finish'
 end

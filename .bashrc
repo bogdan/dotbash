@@ -3,6 +3,7 @@
 
 [[ $- == *i* ]] || return
 
+export _Z_NO_RESOLVE_SYMLINKS=1
 source ~/.dotbash/bin/z.sh
 # If not running interactively, don't do anything
 export HISTCONTROL=ignoredups
@@ -58,10 +59,12 @@ fi
 # Editor
 #
  
-if [ $DISPLAY ] && which gvim > /dev/null ; then
-  EDITOR="gvim"
-elif [ $DISPLAY ] && which mvim > /dev/null ; then
-  EDITOR="mvim"
+if [ $DISPLAY ] || [ `uname` = Darwin ] ; then
+  if which gvim > /dev/null ; then
+    EDITOR="gvim"
+  elif which mvim > /dev/null ; then
+    EDITOR="mvim"
+  fi
 elif which vi > /dev/null ; then
   EDITOR="vi"
 fi

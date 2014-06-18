@@ -11,7 +11,8 @@ alias mkisofs="mkisofs -J -R"
 alias mc="mc --colors normal=cyan,default:marked=green,default:directory=brown,default:errors=red,default:executable=red,default:link=green,default:device=magenta,default: menu=white,default:menuhot=white,default:menusel=white,default:menuhotsel=white,default:helpnormal=white,default:helplink=white,default:helpslink=white,default:helpitalic=white,default:reverse=brown,default:gauge=brown,default:input=brown,default:selected=white,default:markselect=brown,gray"
 alias locate='locate -i'
 alias j='jobs'
-alias g='grep -r --color=auto -i'
+alias g='grep  --color=auto -i'
+alias gr='grep -r --color=auto -i'
 type ack > /dev/null 2> /dev/null || alias ack="ack-grep"
 type ack > /dev/null 2> /dev/null && alias ack-grep="ack"
 alias vg='grep --color=auto -iv'
@@ -91,6 +92,8 @@ alias re="source ~/.bashrc"
 alias gad="git add"
 #compdef _git gad=git-add
 
+alias gcl="git clone"
+alias ggr="git grep -n --color"
 
 alias gst='git status'
 #compdef _git gst=git-status
@@ -131,6 +134,10 @@ alias gdo="git commit -m 'do'"
 alias ggo="git add . && git commit -m 'do' && git push"
 
 alias glp="git log -p"
+alias gg="git grep --color"
+alias gm="git merge"
+alias gmm="git merge master"
+alias gmom="git merge origin/master"
 
 gac() {
   heading=`git diff --stat --cached | head -1`
@@ -203,11 +210,22 @@ alias pci="rvm system do pivotal commit"
 
 alias be="bundle exec"
 alias bi="bundle install"
+alias bo="bundle open"
 
 alias rsp="bundle exec rspec --format Fuubar --drb"
 
 alias zr="zeus rake"
 alias zt="zeus test"
+alias zc="zeus console"
+
+alias k='kill'
+alias k9='kill -9'
+kg() {
+  kill $@ && ps aux | grep $@
+}
+k9g() {
+  kill -9 $@ && ps aux | grep $@
+}
 
 #
 # Just sudo

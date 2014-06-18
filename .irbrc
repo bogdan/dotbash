@@ -37,6 +37,7 @@ else
 end
 
 if ENV['RAILS_ENV'] && irb_conf
+  IRB.conf[:PROMPT] ||= {}
   IRB.conf[:PROMPT][:CUSTOM] = {
     :PROMPT_N => "#{ENV["RAILS_ENV"]} >> ",
     :PROMPT_I => "#{ENV["RAILS_ENV"]} >> ",
@@ -156,62 +157,54 @@ end
 
 loud_logger
 
-class Array
-  class Recorder
+[Enumerable, Hash].each do |klass|
+  klass.class_eval do
 
+    def cp
+      compact
+    end
 
-    (instance_methods + private_instance_methods).each do |method|
-      unless method.to_s =~ /^(__|instance_eval|instance_exec|initialize|object_id)/
-        undef_method method
+    def mp(&block)
+      call_support_method(:map, &block)
+    end
+
+    def sl(&block)
+      call_support_method(:select, &block)
+    end
+
+    def rj(&block)
+      call_support_method(:reject, &block)
+    end
+
+    def fl
+      flatten
+    end
+
+    def mpfl(&block)
+      mp(&block).fl
+    end
+
+    def sb(&block)
+      call_support_method(:sort_by, &block)
+    end
+
+    def rv
+      reverse
+    end
+    
+    def f(&block)
+      call_support_method(:find, &block)
+    end
+
+    def call_support_method(method, &block)
+      send(method) do |object|
+        object.instance_eval(&block)
       end
     end
-
-    def self.run(&block)
-      new(&block)._commands
-    end
-
-
-    def initialize(&block)
-      instance_eval(&block)
-    end
-
-    def _commands
-      @_commands ||= []
-    end
-    def method_missing(meth, *args, &blk)
-      _commands  << meth.to_sym
-      self
-    end
   end
+end
 
-  def cp
-    compact
-  end
-
-  def mp(&block)
-    apply_recorder(:map, &block)
-  end
-
-  def sl(&block)
-    apply_recorder(:select, &block)
-  end
-
-  def rj(&block)
-    apply_recorder(:reject, &block)
-  end
-
-  def fl(&block)
-    flatten
-  end
-
-  def mpfl(&block)
-    mp(&block).fl
-  end
-
-  def apply_recorder(method, &block)
-    send(method) do |object|
-      object.instance_eval(&block)
-    end
-  end
+def tbl(rows, options = {})
+  puts Hirb::Helpers::Table.render(rows, options)
 end
 

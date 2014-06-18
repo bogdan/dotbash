@@ -63,8 +63,8 @@ class Rsub
 
   def run
     pairs.each do |from, to|
-      rename_files(from, to) if options[:rename]
       replace(from, to) if options[:replace]
+      rename_files(from, to) if options[:rename]
     end
   end
 
