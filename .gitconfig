@@ -41,7 +41,6 @@
     default = matching
 [github]
     user = bogdan
-    token = 02c6e4f23ac6b62bdd4b0d0b9bf3b76e
 
 
 [url "git@github.com:bogdan/"]
