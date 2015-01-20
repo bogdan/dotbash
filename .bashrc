@@ -54,6 +54,9 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$PATH:$HOME/bin"
 fi
 
+if [ -f "$HOME/.ssh/id_rsa" ] && [ ! "`ssh-add -l | grep id_rsa`" ]; then
+  ssh-add $HOME/.ssh/id_rsa
+fi
 
 #
 # Editor

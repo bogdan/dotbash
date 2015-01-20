@@ -165,7 +165,7 @@ loud_logger
     end
 
     def mp(&block)
-      call_support_method(:map, &block)
+      call_support_method(:map, &block).flatten
     end
 
     def sl(&block)
@@ -201,10 +201,18 @@ loud_logger
         object.instance_eval(&block)
       end
     end
+
+    def tk(*args, &block)
+      take(*args, &block)
+    end
   end
 end
 
 def tbl(rows, options = {})
   puts Hirb::Helpers::Table.render(rows, options)
+end
+
+def json(data)
+  puts JSON.pretty_generate(data)
 end
 

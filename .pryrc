@@ -27,7 +27,7 @@ if defined? Hirb
 end
 
 # Load plugins (only those I whitelist)
-#Pry.config.should_load_plugins = false
+Pry.config.should_load_plugins = false
 #Pry.plugins["doc"].activate!
 
 #::IRB = ::Pry
