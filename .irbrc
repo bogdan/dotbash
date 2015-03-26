@@ -165,7 +165,11 @@ loud_logger
     end
 
     def mp(&block)
-      call_support_method(:map, &block).flatten
+      mpfl
+    end
+
+    def mpp(&block)
+      call_support_method(:map, &block)
     end
 
     def sl(&block)
@@ -181,7 +185,7 @@ loud_logger
     end
 
     def mpfl(&block)
-      mp(&block).fl
+      mpp(&block).flatten
     end
 
     def sb(&block)
@@ -214,5 +218,13 @@ end
 
 def json(data)
   puts JSON.pretty_generate(data)
+end
+
+def top(relation, limit = 30)
+  rez = relation.order("count_all desc").limit(limit).count
+  rez = rez.map do |key, value|
+    [key, value].flatten
+  end
+  rez
 end
 

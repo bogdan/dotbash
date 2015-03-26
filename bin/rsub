@@ -14,10 +14,6 @@ class Rsub
 
 
   def initialize(args)
-    @options = {}
-
-    options[:replace] = true
-    options[:rename] = true
 
     @option_parser = OptionParser.new do |opts|
       opts.banner = "Rename files and pattern in file"
@@ -47,8 +43,12 @@ class Rsub
         options[:replace] = true
         options[:rename] = false unless options.has_key?(:rename)
       end
+
     end
     @option_parser.parse!(args)
+
+    options[:replace] = true unless options.has_key?(:replace) 
+    options[:rename] = true unless options.has_key?(:rename) 
 
     if args.size < 3
       usage
@@ -119,7 +119,7 @@ class Rsub
 
   def usage
     puts <<-EOI
-Usage: rsub [-acusp] <oldname> <newname> <path> [<path> ...]
+Usage: rsub [options] <oldname> <newname> <path> [<path> ...]
 
     EOI
     @option_parser.display
@@ -130,7 +130,7 @@ Usage: rsub [-acusp] <oldname> <newname> <path> [<path> ...]
   end
 
   def options
-    @options
+    @options ||= {}
   end
 end
 

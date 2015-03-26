@@ -55,7 +55,7 @@ if [ -d "$HOME/bin" ] ; then
 fi
 
 if [ -f "$HOME/.ssh/id_rsa" ] && [ ! "`ssh-add -l | grep id_rsa`" ]; then
-  ssh-add $HOME/.ssh/id_rsa
+  ssh-add $HOME/.ssh/id_rsa > /dev/null
 fi
 
 #
