@@ -165,7 +165,7 @@ loud_logger
     end
 
     def mp(&block)
-      mpfl
+      mpfl(&block)
     end
 
     def mpp(&block)
@@ -221,10 +221,13 @@ def json(data)
 end
 
 def top(relation, limit = 30)
-  rez = relation.order("count_all desc").limit(limit).count
+  rez = relation.reorder("count_all desc").limit(limit).count
   rez = rez.map do |key, value|
     [key, value].flatten
   end
   rez
 end
 
+def ttop(*args)
+  tbl(top(*args))
+end
