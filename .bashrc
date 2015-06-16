@@ -104,7 +104,7 @@ fi
 
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
 
-
+export DISABLE_SPRING="y"
 export RET="RAILS_ENV=test"
 export REP="RAILS_ENV=production"
 mkcd()

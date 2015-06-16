@@ -111,7 +111,7 @@ alias gds="git diff --color --stat"
 alias gci='git commit -v'
 alias gsi='git storyid'
 #compdef _git gc=git-commit
-alias gca='git commit -v -a'
+alias gca='git commit --amend'
 #compdef _git gca=git-commit
 alias gco='git checkout'
 alias gcm='git checkout master'
@@ -127,9 +127,10 @@ alias gcp='git cherry-pick'
 alias glg='git log --stat --max-count=5'
 #compdef _git glg=git-log
 alias gsi="git storyid"
-alias gsh="git stash"
+alias gsh="git stash -u"
 alias gsp="git stash pop"
 alias grs="git reset"
+alias grh="git reset 'HEAD^'"
 alias gdo="git commit -m 'do'"
 alias ggo="git add . && git commit -m 'do' && git push"
 
@@ -137,6 +138,7 @@ alias glp="git log -p"
 alias gg="git grep --color"
 alias gm="git merge"
 alias gmm="git merge master"
+alias gma="git merge --abort"
 alias gmom="git merge origin/master"
 
 gac() {

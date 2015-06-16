@@ -213,6 +213,7 @@ loud_logger
 end
 
 def tbl(rows, options = {})
+  require "hirb"
   puts Hirb::Helpers::Table.render(rows, options)
 end
 
@@ -220,12 +221,18 @@ def json(data)
   puts JSON.pretty_generate(data)
 end
 
-def top(relation, limit = 30)
-  rez = relation.reorder("count_all desc").limit(limit).count
+def top(relation, *groups)
+  limit = groups.last.is_a?(Fixnum) ? groups.pop : 30
+  rez = relation.reorder("count_all desc").group(groups).limit(limit).count
   rez = rez.map do |key, value|
     [key, value].flatten
   end
   rez
+end
+
+def cl
+  ActiveRecord::Base.clear_active_connections!
+  true
 end
 
 def ttop(*args)
