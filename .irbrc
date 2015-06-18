@@ -235,6 +235,12 @@ def cl
   true
 end
 
+if defined?(ActiveSupport::Duration)
+  ActiveSupport::Duration.send(:define_method, :till_now) do
+    ago..Time.current
+  end
+end
+
 def ttop(*args)
   tbl(top(*args))
 end
