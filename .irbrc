@@ -168,6 +168,11 @@ loud_logger
       mpfl(&block)
     end
 
+    def ea
+      call_support_method(:each, &block)
+      self
+    end
+
     def mpp(&block)
       call_support_method(:map, &block)
     end
