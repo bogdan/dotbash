@@ -140,6 +140,7 @@ alias gm="git merge"
 alias gmm="git merge master"
 alias gma="git merge --abort"
 alias gmom="git merge origin/master"
+alias gmum="git merge upstream/master"
 
 gac() {
   heading=`git diff --stat --cached | head -1`

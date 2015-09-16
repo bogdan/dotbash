@@ -181,6 +181,18 @@ loud_logger
       call_support_method(:select, &block)
     end
 
+    def si(arg = nil)
+      select do |el|
+        el.include?(arg)
+      end
+    end
+
+    def ri(arg = nil)
+      reject do |el|
+        el.include?(el)
+      end
+    end
+
     def rj(&block)
       call_support_method(:reject, &block)
     end
@@ -219,6 +231,7 @@ end
 
 def tbl(rows, options = {})
   require "hirb"
+  rows = rows.to_a
   puts Hirb::Helpers::Table.render(rows, options)
 end
 
@@ -228,7 +241,9 @@ end
 
 def top(relation, *groups)
   limit = groups.last.is_a?(Fixnum) ? groups.pop : 30
-  rez = relation.reorder("count_all desc").group(groups).limit(limit).count
+  rez = relation.is_a?(ActiveRecord::Relation) ? 
+    relation.reorder("count_all desc").group(groups).limit(limit).count :
+    relation.to_a.sort_by(&:last).reverse.take(limit)
   rez = rez.map do |key, value|
     [key, value].flatten
   end
