@@ -38,9 +38,11 @@
 	main-window-view = HistoryView
 	file-view-vpane-position = 621
 [push]
-    default = matching
+  default = matching
 [github]
-    user = bogdan
+  user = bogdan
+[grep]
+  lineNumber = true
 
 
 [url "git@github.com:bogdan/"]
