@@ -160,6 +160,10 @@ loud_logger
 [Enumerable, Hash].each do |klass|
   klass.class_eval do
 
+    def j(sep = ',')
+      join(sep)
+    end
+
     def cp
       compact
     end

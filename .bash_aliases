@@ -25,6 +25,7 @@ alias rw="chmod u+rw"
 #compdef _chmod rw=chmod a+x
 alias ymd="date +%g.%m.%d"
 alias dtail="dmesg | tail -n 20"
+alias hd="head"
 
 alias t="tail -n1000"
 alias t2="tail -n100"
