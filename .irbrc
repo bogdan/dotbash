@@ -181,6 +181,14 @@ loud_logger
       call_support_method(:map, &block)
     end
 
+    def mpt(&block)
+      mpp(&block).tbl
+    end
+
+    def tbl
+      Object.send(:tbl, self)
+    end
+
     def sl(&block)
       call_support_method(:select, &block)
     end

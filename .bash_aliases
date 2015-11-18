@@ -140,6 +140,7 @@ alias gg="git grep --color"
 alias gm="git merge"
 alias gmm="git merge master"
 alias gma="git merge --abort"
+alias gfu="git fetch upstream"
 alias gmum="git merge upstream/master"
 alias gmom="git merge origin/master"
 

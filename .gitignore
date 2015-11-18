@@ -1,5 +1,6 @@
 *.swo
 *.swp
+.byebug_history
 .pivotalrc
 .pivotal_cache
 .rake_tasks
