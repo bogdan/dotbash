@@ -84,7 +84,7 @@ end
 
 
 class Object
-  def interesting_methods
+  def ims
     case self.class
     when Class
       self.public_methods.sort - Object.public_methods
@@ -94,6 +94,11 @@ class Object
       self.public_methods.sort - Object.new.public_methods
     end
   end
+
+  def p
+    puts self
+  end
+
 end
 
 
@@ -237,6 +242,22 @@ loud_logger
 
     def tk(*args, &block)
       take(*args, &block)
+    end
+
+    def un(&block)
+      call_support_method(:uniq, &block)
+    end
+
+    def pr(&block)
+      call_support_method(:partition, &block)
+    end
+    
+    def y
+      puts to_yaml
+    end
+
+    def j
+      puts JSON.pretty_generate(self)
     end
   end
 end
