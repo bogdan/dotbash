@@ -190,10 +190,6 @@ loud_logger
       mpp(&block).tbl
     end
 
-    def tbl
-      Object.send(:tbl, self)
-    end
-
     def sl(&block)
       call_support_method(:select, &block)
     end
@@ -259,6 +255,11 @@ loud_logger
     def j
       puts JSON.pretty_generate(self)
     end
+    
+    def t
+      Object.send(:t, self)
+    end
+
   end
 end
 
