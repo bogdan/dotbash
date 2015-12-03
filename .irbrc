@@ -257,7 +257,7 @@ loud_logger
     end
     
     def t
-      Object.send(:t, self)
+      Object.send(:tbl, self)
     end
 
   end
