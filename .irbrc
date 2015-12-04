@@ -273,15 +273,27 @@ def json(data)
   puts JSON.pretty_generate(data)
 end
 
-def top(relation, *groups)
-  limit = groups.last.is_a?(Fixnum) ? groups.pop : 30
-  rez = relation.is_a?(ActiveRecord::Relation) ? 
-    relation.reorder("count_all desc").group(groups).limit(limit).count :
-    relation.to_a.sort_by(&:last).reverse.take(limit)
-  rez = rez.map do |key, value|
-    [key, value].flatten
+if defined?(ActiveRecord)
+  ActiveRecord::Relation.class_eval do
+    def top(*groups)
+      relation = self
+      limit = groups.last.is_a?(Fixnum) ? groups.pop : 30
+      rez = relation.is_a?(ActiveRecord::Relation) ? 
+        relation.reorder("count_all desc").group(groups).limit(limit).count :
+        relation.to_a.sort_by(&:last).reverse.take(limit)
+      rez = rez.map do |key, value|
+        [key, value].flatten
+      end
+      rez
+    end
+    def ttop(*args)
+      tbl(top(*args))
+    end
+
+    def days_till_now(num = 30)
+      where(created_at: num.days.ago..Time.now)
+    end
   end
-  rez
 end
 
 def cl
@@ -289,12 +301,3 @@ def cl
   true
 end
 
-if defined?(ActiveSupport::Duration)
-  ActiveSupport::Duration.send(:define_method, :till_now) do
-    ago..Time.current
-  end
-end
-
-def ttop(*args)
-  tbl(top(*args))
-end
