@@ -187,7 +187,7 @@ loud_logger
     end
 
     def mpt(&block)
-      mpp(&block).tbl
+      mpp(&block).t
     end
 
     def sl(&block)
@@ -225,7 +225,7 @@ loud_logger
     def rv
       reverse
     end
-    
+
     def f(&block)
       call_support_method(:find, &block)
     end
@@ -247,7 +247,7 @@ loud_logger
     def pr(&block)
       call_support_method(:partition, &block)
     end
-    
+
     def y
       puts to_yaml
     end
@@ -255,7 +255,7 @@ loud_logger
     def j
       puts JSON.pretty_generate(self)
     end
-    
+
     def t
       Object.send(:tbl, self)
     end
@@ -278,7 +278,7 @@ if defined?(ActiveRecord)
     def top(*groups)
       relation = self
       limit = groups.last.is_a?(Fixnum) ? groups.pop : 30
-      rez = relation.is_a?(ActiveRecord::Relation) ? 
+      rez = relation.is_a?(ActiveRecord::Relation) ?
         relation.reorder("count_all desc").group(groups).limit(limit).count :
         relation.to_a.sort_by(&:last).reverse.take(limit)
       rez = rez.map do |key, value|

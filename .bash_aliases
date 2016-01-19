@@ -222,6 +222,7 @@ alias rsp="bundle exec rspec --format Fuubar --drb"
 alias zr="zeus rake"
 alias zt="zeus test"
 alias zc="zeus console"
+alias zs="zeus start"
 
 alias k='kill'
 alias k9='kill -9'
