@@ -117,6 +117,31 @@ def loud_logger
   set_logger_to STDLOGGER
 end
 
+def init_ar
+  return unless defined?(ActiveRecord)
+  loud_logger
+  ActiveRecord::Relation.class_eval do
+    def top(*groups)
+      relation = self
+      limit = groups.last.is_a?(Fixnum) ? groups.pop : 30
+      rez = relation.is_a?(ActiveRecord::Relation) ?
+        relation.reorder("count_all desc").group(groups).limit(limit).count :
+        relation.to_a.sort_by(&:last).reverse.take(limit)
+      rez = rez.map do |key, value|
+        [key, value].flatten
+      end
+      rez
+    end
+    def ttop(*args)
+      tbl(top(*args))
+    end
+
+    def days(num = 30)
+      where(created_at: num.days.ago..Time.now)
+    end
+  end
+end
+
 def quiet_logger
   disable_hirb
   set_logger_to nil
@@ -160,7 +185,7 @@ def ex
   ex
 end
 
-loud_logger
+init_ar
 
 [Enumerable, Hash].each do |klass|
   klass.class_eval do
@@ -273,28 +298,6 @@ def json(data)
   puts JSON.pretty_generate(data)
 end
 
-if defined?(ActiveRecord)
-  ActiveRecord::Relation.class_eval do
-    def top(*groups)
-      relation = self
-      limit = groups.last.is_a?(Fixnum) ? groups.pop : 30
-      rez = relation.is_a?(ActiveRecord::Relation) ?
-        relation.reorder("count_all desc").group(groups).limit(limit).count :
-        relation.to_a.sort_by(&:last).reverse.take(limit)
-      rez = rez.map do |key, value|
-        [key, value].flatten
-      end
-      rez
-    end
-    def ttop(*args)
-      tbl(top(*args))
-    end
-
-    def days_till_now(num = 30)
-      where(created_at: num.days.ago..Time.now)
-    end
-  end
-end
 
 def cl
   ActiveRecord::Base.clear_active_connections!

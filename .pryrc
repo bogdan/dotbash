@@ -42,7 +42,7 @@ if File.exist?(rails) && ENV['SKIP_RAILS'].nil?
   require 'rails/console/app'
   require 'rails/console/helpers'
   extend Rails::ConsoleMethods
-  loud_logger
+  init_ar
 end
 
 
