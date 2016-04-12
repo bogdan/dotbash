@@ -15,40 +15,10 @@ class Rsub
 
   def initialize(args)
 
-    @option_parser = OptionParser.new do |opts|
-      opts.banner = "Rename files and pattern in file"
-      opts.on("-a", "--all", "Same as -cusp") do
-        options[:underscore] = true
-        options[:camelize] = true
-        options[:singularize] = true
-        options[:pluralize] = true
-      end
-      opts.on("-u", "--underscore", "Use underscore conversion for specified pattern") do
-        options[:underscore] = true
-      end
-      opts.on("-c", "--camelcase", "Use camelcase conversion for specified pattern") do
-        options[:camelize] = true
-      end
-      opts.on("-s", "--singular", "Use singular conversion for specified pattern") do
-        options[:singularize] = true
-      end
-      opts.on("-p", "--plural", "Use plural conversion for specified pattern") do
-        options[:plural] = true
-      end
-      opts.on("-f", "--files", "Only rename files") do
-        options[:rename] = true
-        options[:replace] = false unless options.has_key?(:replace)
-      end
-      opts.on("-r", "--replace", "Only replace file content") do
-        options[:replace] = true
-        options[:rename] = false unless options.has_key?(:rename)
-      end
+    options_parser.parse!(args)
 
-    end
-    @option_parser.parse!(args)
-
-    options[:replace] = true unless options.has_key?(:replace) 
-    options[:rename] = true unless options.has_key?(:rename) 
+    options[:replace] = true unless options.has_key?(:replace)
+    options[:rename] = true unless options.has_key?(:rename)
 
     if args.size < 3
       usage
@@ -71,24 +41,13 @@ class Rsub
   protected
   def pairs
     @pairs ||= (
-      if only?
-        {@old_name => @new_name}
-      else
-        result = {}
-        [options[:pluralize] && :pluralize, options[:singularize] && :singularize].each do |amount|
-          [options[:underscore] && :underscore, options[:camelize] && :camelize].each do |wordcase|
-            if wordcase && amount
-              result[@old_name.send(wordcase).send(amount)] = @new_name.send(wordcase).send(amount)
-            end
-          end
-        end
-        result
-      end
+      number_methods.product(case_methods).map do |amount, wordcase|
+        [@old_name.send(wordcase).send(amount), @new_name.send(wordcase).send(amount)]
+      end.to_h
     )
   end
 
   def rename_files(from, to)
-
     files = exec("find #{@path} -name '#{from}*' ").split("\n")
     files.each do |old_name|
       new_name = old_name.gsub(from, to)
@@ -96,8 +55,21 @@ class Rsub
     end
   end
 
+  def number_methods
+    options[:plural] ? [:pluralize, :singularize] : [:itself]
+  end
+
+  def case_methods
+    options[:case] ? [:camelcase, :underscore] : [:itself]
+
+  end
+
   def replace(from, to)
-    exec "find #{@path} -type f -exec #{sed_command} 's/#{from}/#{to}/g' {} \\;"
+    exec "find #{@path} -type f -exec #{sed_command} 's/#{wrap_word(from)}/#{to}/g' {} \\;"
+  end
+
+  def wrap_word(text)
+    [sed_word_regexp, text, sed_word_regexp].join
   end
 
   def sed_command
@@ -122,16 +94,48 @@ class Rsub
 Usage: rsub [options] <oldname> <newname> <path> [<path> ...]
 
     EOI
-    @option_parser.display
-  end
-
-  def only?
-    !(options[:underscore] || options[:camelize] || options[:singularize] || options[:plural])
+    options_parser.display
   end
 
   def options
     @options ||= {}
   end
+
+  def sed_word_regexp
+    return '' unless options[:word_regexp]
+    macos? ? '[[:<:]]' : '\b'
+  end
+
+  def options_parser
+    @option_parser ||= OptionParser.new do |opts|
+      opts.banner = "Rename files and pattern in file"
+      opts.on("-a", "--all", "Same as -cusp: searches pattern for any case and number form") do
+        options[:case] = true
+        options[:plural] = true
+      end
+      opts.on("-c", "--case", "Replace pattern in CamelCase and under_score_case") do
+        options[:case] = true
+      end
+      opts.on("-p", "--pluralize", "Replace pattern in plural form as well") do
+        options[:plural] = true
+      end
+      opts.on("-f", "--files", "Only rename files") do
+        options[:rename] = true
+        options[:replace] = false unless options.has_key?(:replace)
+      end
+      opts.on("-r", "--replace", "Only replace file content") do
+        options[:replace] = true
+        options[:rename] = false unless options.has_key?(:rename)
+      end
+      opts.on("-w", "--word-regexp", "Only replace whole word") do
+        if options[:replace] == false
+          raise "-w --word-regexp can only be used when replacing is enabled"
+        end
+        options[:word_regexp] = true
+      end
+    end
+  end
+
 end
 
 
