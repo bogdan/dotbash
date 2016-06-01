@@ -28,14 +28,6 @@ STDLOGGER.formatter = proc do |_, _, _, message|
   message + "\n"
 end
 
-if self.respond_to?(:silence_warnings)
-  silence_warnings do
-    RAILS_DEFAULT_LOGGER = STDLOGGER
-  end
-else
-  RAILS_DEFAULT_LOGGER = STDLOGGER
-end
-
 if ENV['RAILS_ENV'] && irb_conf
   IRB.conf[:PROMPT] ||= {}
   IRB.conf[:PROMPT][:CUSTOM] = {
@@ -53,7 +45,7 @@ if ENV['RAILS_ENV'] && irb_conf
 end
 
 if defined?(Rails) && Rails.respond_to?(:logger=)
-  Rails.logger = RAILS_DEFAULT_LOGGER
+  Rails.logger = STDLOGGER
 end
 
 def sql(query)
@@ -61,7 +53,7 @@ def sql(query)
 end
 
 if defined?(HttpLogger)
-  HttpLogger.logger = RAILS_DEFAULT_LOGGER
+  HttpLogger.logger = STDLOGGER
 end
 
 def watch(seconds = 1)
@@ -69,7 +61,7 @@ def watch(seconds = 1)
     result = yield
     system('reset')
     puts result.to_s
-    sleep(2)
+    sleep(seconds)
   end
 end
 
@@ -148,10 +140,10 @@ def quiet_logger
 end
 
 def set_logger_to(logger)
-  if defined?(ActiveRecord)
-    ActiveRecord::Base.logger = logger
-    ActiveRecord::Base.clear_reloadable_connections!
-  end
+  return false unless defined?(ActiveRecord)
+  ActiveRecord::Base.logger = logger
+  ActiveRecord::Base.clear_reloadable_connections!
+  true
 end
 
 def enable_hirb
@@ -172,7 +164,7 @@ def disable_hirb
 end
 
 
-def r!
+def r
   reload!
 end
 

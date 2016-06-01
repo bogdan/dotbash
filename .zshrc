@@ -26,3 +26,7 @@ unset i
 PATH="$PATH:`git --exec-path`"
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+if [[ -f /usr/local/share/zsh-completion ]]; then
+  fpath=(/usr/local/share/zsh-completions $fpath)
+fi
