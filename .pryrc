@@ -52,4 +52,7 @@ if defined?(Pry::Byebug)
   Pry.commands.alias_command 'n', 'next'
   Pry.commands.alias_command 'f', 'finish'
   Pry.commands.alias_command 'b', 'break'
+  Pry::Commands.command(/^$/, "repeat last command") do
+    _pry_.input = StringIO.new(Pry.history.to_a.last)
+  end
 end

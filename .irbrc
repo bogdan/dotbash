@@ -194,7 +194,7 @@ init_ar
       mpfl(&block)
     end
 
-    def ea
+    def ea(&block)
       call_support_method(:each, &block)
       self
     end
@@ -249,7 +249,7 @@ init_ar
 
     def call_support_method(method, &block)
       send(method) do |object|
-        object.instance_eval(&block)
+        object.instance_eval(&block) if block
       end
     end
 
@@ -257,7 +257,7 @@ init_ar
       take(*args, &block)
     end
 
-    def un(&block)
+    def u(&block)
       call_support_method(:uniq, &block)
     end
 
@@ -294,5 +294,14 @@ end
 def cl
   ActiveRecord::Base.clear_active_connections!
   true
+end
+
+def processlist
+  loop do
+    data = User.connection.select_all("show full processlist")
+    tbl data.select {|z| z["Command"] != "Sleep"}
+    system("clear")
+    sleep 1
+  end
 end
 

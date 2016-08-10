@@ -149,6 +149,11 @@ alias gfu="git fetch upstream"
 alias gmum="git merge upstream/master"
 alias gmom="git merge origin/master"
 alias gpf="git push -f"
+alias grv="git revert"
+alias gcn="git clean -fd"
+gap() {
+  git add . && git ci $@ && git push
+}
 
 gac() {
   heading=`git diff --stat --cached | head -1`
@@ -205,6 +210,7 @@ alias gi="gem install"
 alias gu="gem uninstall"
 alias gl="gem list"
 alias gs="gem search --remote"
+alias go="gem open"
 
 alias jgem="sudo jruby -S gem"
 alias jr="jruby -S rake"
