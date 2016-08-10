@@ -299,8 +299,8 @@ end
 def processlist
   loop do
     data = User.connection.select_all("show full processlist")
-    tbl data.select {|z| z["Command"] != "Sleep"}
     system("clear")
+    tbl data.select {|z| z["Command"] != "Sleep"}
     sleep 1
   end
 end
