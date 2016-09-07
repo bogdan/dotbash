@@ -52,6 +52,10 @@ def sql(query)
   ActiveRecord::Base.connection.select_all(query)
 end
 
+def q(query)
+  sql(query)
+end
+
 if defined?(HttpLogger)
   HttpLogger.logger = STDLOGGER
 end
@@ -296,7 +300,7 @@ def cl
   true
 end
 
-def processlist
+def pl
   loop do
     data = User.connection.select_all("show full processlist")
     system("clear")
@@ -305,3 +309,17 @@ def processlist
   end
 end
 
+def get(url)
+  Rails.cache.instance_variable_get("@data").client.logger = STDLOGGER
+
+  ApplicationController.perform_caching = true
+
+  ApplicationController.class_eval do
+    def current_user
+      @cu||= User.find_by_email('bogdan@talkable.com')
+    end
+  end
+
+  origin = DOMAIN_SETTINGS[:default]
+  app.get(Furi.build(origin.merge(request: url)))
+end

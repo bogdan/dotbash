@@ -140,7 +140,7 @@ alias gdo="git commit -m 'do'"
 alias ggo="git add . && git commit -m 'do' && git push"
 
 alias glp="git log -p"
-alias gg="git grep --color"
+alias gg="git grep -w --color"
 alias gm="git merge"
 alias gmb="git merge bogdan"
 alias gmm="git merge master"
@@ -219,7 +219,7 @@ alias pt='parallel_test'
 alias ptt='parallel_test test'
 alias pts="parallel_rspec spec"
 
-alias csd="cap staging deploy"
+alias csd="CI=ignore cap staging deploy"
 alias cdd="cap dev deploy"
 alias cpd="cap production deploy"
 
