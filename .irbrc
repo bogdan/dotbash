@@ -145,6 +145,7 @@ end
 
 def set_logger_to(logger)
   return false unless defined?(ActiveRecord)
+  Rails.logger = STDLOGGER
   ActiveRecord::Base.logger = logger
   ActiveRecord::Base.clear_reloadable_connections!
   true
@@ -169,6 +170,10 @@ end
 
 
 def r
+  reload!
+end
+
+def r!
   reload!
 end
 
@@ -310,7 +315,22 @@ def pl
 end
 
 def get(url)
+  url = url.strip
   Rails.cache.instance_variable_get("@data").client.logger = STDLOGGER
+  if Rails.respond_to?(:persistent_cache)
+    Rails.cattr_reader :persistent_cache do
+      # Removing the pool
+      ActiveSupport::Cache::RedisStore.new(
+        RedisPool::CONFIG[:persistent_cache],
+        expires_in: 1.day,
+      )
+    end
+
+    Rails.persistent_cache.instance_variable_get("@data").client.logger = STDLOGGER
+  end
+  [ActionView::Base, ActionController::Base, ActiveRecord::Base].each do |object|
+    object.logger = STDLOGGER
+  end
 
   ApplicationController.perform_caching = true
 
@@ -321,5 +341,5 @@ def get(url)
   end
 
   origin = DOMAIN_SETTINGS[:default]
-  app.get(Furi.build(origin.merge(request: url)))
+  app.get(Furi.defaults(url, origin))
 end
