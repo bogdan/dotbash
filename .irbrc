@@ -309,7 +309,10 @@ def pl
   loop do
     data = User.connection.select_all("show full processlist")
     system("clear")
-    tbl data.select {|z| z["Command"] != "Sleep"}
+    data = data.select {|z| z["Command"] != "Sleep"}.map do |z|
+      z.except("Command", "Host", "State", "User", "db")
+    end
+    tbl data
     sleep 1
   end
 end
