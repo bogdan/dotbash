@@ -219,7 +219,7 @@ alias pt='parallel_test'
 alias ptt='parallel_test test'
 alias pts="parallel_rspec spec"
 
-alias csd="CI=ignore cap staging deploy"
+alias csd="cap staging deploy"
 alias cdd="cap dev deploy"
 alias cpd="cap production deploy"
 
