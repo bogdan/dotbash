@@ -98,7 +98,7 @@ alias gad="git add"
 #compdef _git gad=git-add
 
 alias gcl="git clone"
-alias ggr="git grep -n --color"
+alias grp="git grep -n --color"
 
 alias gst='git status'
 #compdef _git gst=git-status
@@ -140,6 +140,7 @@ alias gdo="git commit -m 'do'"
 alias ggo="git add . && git commit -m 'do' && git push"
 
 alias glp="git log -p"
+alias gbl="git blame"
 alias gg="git grep -w --color"
 alias gm="git merge"
 alias gmb="git merge bogdan"
@@ -148,7 +149,8 @@ alias gma="git merge --abort"
 alias gfu="git fetch upstream"
 alias gmum="git merge upstream/master"
 alias gmom="git merge origin/master"
-alias gpf="git push -f"
+# Only current branch
+alias gpf="git push -f origin \$(git rev-parse --abbrev-ref HEAD)"
 alias grv="git revert"
 alias gcn="git clean -fd"
 gap() {
@@ -227,6 +229,7 @@ alias pci="rvm system do pivotal commit"
 
 alias be="bundle exec"
 alias bi="bundle install"
+alias bu="bundle update"
 alias bo="bundle open"
 
 alias rsp="bundle exec rspec --format Fuubar --drb"

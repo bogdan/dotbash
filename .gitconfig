@@ -4,7 +4,6 @@
     excludesfile = /Users/bogdan/.gitignore
 [diff]
     color = true
-    command = meld
 [alias]
     ci = commit
     st = status -u
@@ -16,7 +15,7 @@
     wtf = !git-wtf
 
 [merge]
-    tool = gvimdiff
+    tool = gvimdiff2
 
 [log]
     color = true
@@ -26,11 +25,6 @@
 [user]
 	email = agresso@gmail.com
 	name = Bogdan Gusiev
-[color]
-    status = auto
-    diff = auto
-    log = auto
-
 [giggle]
 	main-window-maximized = true
 	main-window-geometry = 0x0+0+0

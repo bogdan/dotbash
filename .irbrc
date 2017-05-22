@@ -2,6 +2,10 @@ require 'rubygems'
 
 require 'logger'
 require "net/http"
+begin
+  require 'active_support'
+rescue LoadError
+end
 
 irb_conf = defined?(::IRB) && IRB.respond_to?(:conf)
 load File.dirname(__FILE__) + "/.rubyrc/bogdan.rb"
@@ -23,10 +27,13 @@ if irb_conf
 end
 
 
-STDLOGGER = Logger.new(STDOUT)
-STDLOGGER.formatter = proc do |_, _, _, message|
+logger_class = defined?(ActiveSupport) ? ActiveSupport::Logger : Logger
+logger = logger_class.new(STDOUT)
+logger.formatter = proc do |_, _, _, message|
   message + "\n"
 end
+logger = ActiveSupport::TaggedLogging.new(logger)
+STDLOGGER = logger
 
 if ENV['RAILS_ENV'] && irb_conf
   IRB.conf[:PROMPT] ||= {}
@@ -106,7 +113,6 @@ rescue LoadError
   HIRB_LOADED = false
 end
 
-require 'logger'
 
 def loud_logger
   enable_hirb
@@ -188,6 +194,13 @@ end
 
 init_ar
 
+class Integer
+  def h
+ ActiveSupport::NumberHelper.number_to_delimited(self, delimiter: '_')
+
+  end
+end
+
 [Enumerable, Hash].each do |klass|
   klass.class_eval do
 
@@ -212,8 +225,12 @@ init_ar
       call_support_method(:map, &block)
     end
 
-    def mpt(&block)
+    def mt(&block)
       mpp(&block).t
+    end
+
+    def mpt(&block)
+      mt(&block)
     end
 
     def sl(&block)
@@ -292,6 +309,9 @@ end
 def tbl(rows, options = {})
   require "hirb"
   rows = rows.to_a
+  unless rows.first.is_a?(Array)
+    rows = rows.map {|data| [data]}
+  end
   puts Hirb::Helpers::Table.render(rows, options)
 end
 
