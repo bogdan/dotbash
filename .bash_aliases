@@ -16,6 +16,7 @@ alias gr='grep -r --color=auto -i'
 type ack > /dev/null 2> /dev/null || alias ack="ack-grep"
 type ack > /dev/null 2> /dev/null && alias ack-grep="ack"
 alias vg='grep --color=auto -iv'
+alias fg='find . | grep --color=auto -i'
 alias mloop="sudo mount -o loop"
 alias psg="ps aux | grep --color=auto -i"
 alias grey="convert -fx \(r+g+b\)/3"
@@ -120,10 +121,12 @@ alias gca='git commit --amend'
 #compdef _git gca=git-commit
 alias gco='git checkout'
 alias gcm='git checkout master'
+alias gcb='git checkout bogdan'
 #compdef _git gco=git-checkout
 alias gbr='git branch'
 #compdef _git gb=git-branch
 alias gba='git branch -a'
+alias gbd='git branch -d'
 #compdef _git gba=git-branch
 alias gcount='git shortlog -sn'
 #compdef gcount=git

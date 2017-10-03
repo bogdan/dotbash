@@ -309,10 +309,11 @@ end
 def tbl(rows, options = {})
   require "hirb"
   rows = rows.to_a
-  unless rows.first.is_a?(Array)
+  unless rows.first.is_a?(Array) || rows.first.is_a?(Hash)
     rows = rows.map {|data| [data]}
   end
   puts Hirb::Helpers::Table.render(rows, options)
+  nil
 end
 
 def json(data)
@@ -326,14 +327,21 @@ def cl
 end
 
 def pl
-  loop do
+  wt do
     data = User.connection.select_all("show full processlist")
-    system("clear")
     data = data.select {|z| z["Command"] != "Sleep"}.map do |z|
       z.except("Command", "Host", "State", "User", "db")
     end
     tbl data
-    sleep 1
+  end
+end
+
+def wt(interval = 1)
+  loop do
+    system("clear")
+    data = yield
+    puts data if data
+    sleep interval
   end
 end
 
