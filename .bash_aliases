@@ -16,7 +16,9 @@ alias gr='grep -r --color=auto -i'
 type ack > /dev/null 2> /dev/null || alias ack="ack-grep"
 type ack > /dev/null 2> /dev/null && alias ack-grep="ack"
 alias vg='grep --color=auto -iv'
-alias fg='find . | grep --color=auto -i'
+alias gw='grep --color=auto -w'
+alias ge='grep --color=auto -E'
+alias gf='find . | grep --color=auto -i'
 alias mloop="sudo mount -o loop"
 alias psg="ps aux | grep --color=auto -i"
 alias grey="convert -fx \(r+g+b\)/3"
