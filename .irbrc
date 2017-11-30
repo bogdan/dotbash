@@ -32,7 +32,9 @@ logger = logger_class.new(STDOUT)
 logger.formatter = proc do |_, _, _, message|
   message + "\n"
 end
-logger = ActiveSupport::TaggedLogging.new(logger)
+if defined?(ActiveSupport)
+  logger = ActiveSupport::TaggedLogging.new(logger)
+end
 STDLOGGER = logger
 
 if ENV['RAILS_ENV'] && irb_conf
@@ -125,7 +127,7 @@ def init_ar
   ActiveRecord::Relation.class_eval do
     def top(*groups)
       relation = self
-      limit = groups.last.is_a?(Fixnum) ? groups.pop : 30
+      limit = groups.last.is_a?(Integer) ? groups.pop : 30
       rez = relation.is_a?(ActiveRecord::Relation) ?
         relation.reorder("count_all desc").group(groups).limit(limit).count :
         relation.to_a.sort_by(&:last).reverse.take(limit)

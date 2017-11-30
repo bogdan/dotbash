@@ -110,6 +110,7 @@ alias gpl='git pull'
 alias gup='git fetch && git rebase'
 #compdef _git gup=git-fetch
 alias gps='git push'
+alias gph='git push heroku'
 #compdef _git gp=git-push
 alias gdf="git diff --color"
 alias gdc="git diff --cached --color"
@@ -273,3 +274,5 @@ fi
   #(unset GEM_PATH GEM_HOME; command gvim "$@")
 #}
 alias xfce4-terminal="xfce4-terminal --hide-menubar"
+
+alias rs="reset"
