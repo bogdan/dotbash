@@ -101,7 +101,6 @@ alias gad="git add"
 #compdef _git gad=git-add
 
 alias gcl="git clone"
-alias grp="git grep -n --color"
 
 alias gst='git status'
 #compdef _git gst=git-status
@@ -113,10 +112,14 @@ alias gps='git push'
 alias gph='git push heroku'
 #compdef _git gp=git-push
 alias gdf="git diff --color"
+alias gdfm="git diff --color master"
+alias gdfom="git diff --color origin/master"
 alias gdc="git diff --cached --color"
 #compdef _git gdf=git-diff
 alias gdc="git diff --color --cached"
 alias gds="git diff --color --stat"
+alias gdsm="git diff --color --stat master"
+alias gdsom="git diff --color --stat origin/master"
 alias gci='git commit -v'
 alias gsi='git storyid'
 #compdef _git gc=git-commit
@@ -124,6 +127,7 @@ alias gca='git commit --amend'
 #compdef _git gca=git-commit
 alias gco='git checkout'
 alias gcm='git checkout master'
+alias gcv='git checkout void'
 alias gcb='git checkout bogdan'
 #compdef _git gco=git-checkout
 alias gbr='git branch'
@@ -147,7 +151,8 @@ alias ggo="git add . && git commit -m 'do' && git push"
 
 alias glp="git log -p"
 alias gbl="git blame"
-alias gg="git grep -w --color"
+alias ggr="git grep --color"
+alias ggrw="git grep -w --color"
 alias gm="git merge"
 alias gmb="git merge bogdan"
 alias gmm="git merge master"
@@ -240,10 +245,10 @@ alias bo="bundle open"
 
 alias rsp="bundle exec rspec --format Fuubar --drb"
 
-alias zr="zeus rake"
-alias zt="zeus test"
-alias zc="zeus console"
-alias zs="zeus start"
+alias zr="bundle exec zeus --log ./log/zeus.log rake"
+alias zt="bundle exec zeus --log ./log/zeus.log test"
+alias zc="bundle exec zeus --log ./log/zeus.log console"
+alias zs="bundle exec zeus --log ./log/zeus.log start"
 
 alias k='kill'
 alias k9='kill -9'

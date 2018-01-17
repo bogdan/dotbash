@@ -275,6 +275,14 @@ end
       call_support_method(:find, &block)
     end
 
+    def gb(&block)
+      call_support_method(:group_by, &block)
+    end
+
+    def tv(&block)
+      call_support_method(:transform_values, &block)
+    end
+
     def call_support_method(method, &block)
       send(method) do |object|
         object.instance_eval(&block) if block
@@ -347,7 +355,9 @@ def wt(interval = 1)
   end
 end
 
-def get(url)
+def get(url, options = {})
+  headers = options[:headers] ||= {}
+  headers["User-Agent"] = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36'
   url = url.strip
   Rails.cache.instance_variable_get("@data").client.logger = STDLOGGER
   if Rails.respond_to?(:persistent_cache)
@@ -374,5 +384,5 @@ def get(url)
   end
 
   origin = DOMAIN_SETTINGS[:default]
-  app.get(Furi.defaults(url, origin))
+  app.get(Furi.defaults(url, origin), options)
 end
