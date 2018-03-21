@@ -57,8 +57,18 @@ if defined?(Rails) && Rails.respond_to?(:logger=)
   Rails.logger = STDLOGGER
 end
 
-def sql(query)
+def sql(query, shard = nil)
+  ActiveRecord::Base.on_shard(shard) do
+    ActiveRecord::Base.connection.select_all(query)
+  end
+rescue NoMethodError
   ActiveRecord::Base.connection.select_all(query)
+end
+
+def sql_kill(*ids)
+  ids.each do |id|
+    sql("kill #{id}")
+  end
 end
 
 def q(query)
@@ -316,6 +326,16 @@ end
   end
 end
 
+class Hash
+  def trk(&block)
+    call_support_method(:transform_keys, &block)
+  end
+
+  def trv(&block)
+    call_support_method(:transform_values, &block)
+  end
+end
+
 def tbl(rows, options = {})
   require "hirb"
   rows = rows.to_a
@@ -385,4 +405,16 @@ def get(url, options = {})
 
   origin = DOMAIN_SETTINGS[:default]
   app.get(Furi.defaults(url, origin), options)
+end
+
+def debug(klass, method)
+  klass.prepend(
+    Module.new do
+      define_method method do |*args, &block|
+        require 'byebug'
+        byebug
+        super(*args, &block)
+      end
+    end
+  )
 end

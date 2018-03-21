@@ -243,7 +243,7 @@ alias bi="bundle install"
 alias bu="bundle update"
 alias bo="bundle open"
 
-alias rsp="bundle exec rspec --format Fuubar --drb"
+alias sp="bundle exec rspec"
 
 alias zr="bundle exec zeus --log ./log/zeus.log rake"
 alias zt="bundle exec zeus --log ./log/zeus.log test"
