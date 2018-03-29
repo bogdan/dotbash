@@ -99,6 +99,18 @@ end
 
 
 class Object
+  def self.debug(method)
+    prepend(
+      Module.new do
+        define_method method do |*args, &block|
+          require 'byebug'
+          byebug
+          super(*args, &block)
+        end
+      end
+    )
+  end
+
   def ims
     case self.class
     when Class
@@ -407,14 +419,3 @@ def get(url, options = {})
   app.get(Furi.defaults(url, origin), options)
 end
 
-def debug(klass, method)
-  klass.prepend(
-    Module.new do
-      define_method method do |*args, &block|
-        require 'byebug'
-        byebug
-        super(*args, &block)
-      end
-    end
-  )
-end
