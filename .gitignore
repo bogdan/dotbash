@@ -7,6 +7,7 @@
 .sass-cache
 .shelltoadrc
 bin/rvm*
+bin/spellgood
 bin/phantomjs
 config/initializers/bogdan.rb
 config/initializers/local.rb

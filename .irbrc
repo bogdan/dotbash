@@ -100,7 +100,16 @@ end
 
 class Object
   def self.debug(method)
-    prepend(
+    install_debug(self, method)
+    install_debug(singleton_class, method)
+  end
+
+  def debug(method)
+    install_debug(singleton_class, method)
+  end
+
+  def install_debug(klass, method)
+    klass.prepend(
       Module.new do
         define_method method do |*args, &block|
           require 'byebug'
@@ -370,11 +379,16 @@ end
 
 def pl
   wt do
-    data = User.connection.select_all("show full processlist")
-    data = data.select {|z| z["Command"] != "Sleep"}.map do |z|
-      z.except("Command", "Host", "State", "User", "db")
-    end
-    tbl data
+    tbl(
+      DatabaseUtils.on_all_databases do
+        [DatabaseUtils.connection(slave: true), DatabaseUtils.connection(slave: false)].compact.map do |c|
+          data = c.select_all("show full processlist")
+          data = data.select {|z| z["Command"] != "Sleep"}.map do |z|
+            z.slice("Id", "Info", "Time")
+          end
+        end
+      end.flatten(2)
+    )
   end
 end
 
