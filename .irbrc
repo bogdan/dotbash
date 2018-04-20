@@ -282,6 +282,10 @@ end
       end
     end
 
+    def i?(value)
+      include?(value)
+    end
+
     def rj(&block)
       call_support_method(:reject, &block)
     end
@@ -294,8 +298,29 @@ end
       mpp(&block).flatten
     end
 
-    def sb(&block)
-      call_support_method(:sort_by, &block)
+    def sb(num = nil, &block)
+      raise 'wtf' if block && num
+      if block
+        call_support_method(:sort_by, &block)
+      else
+        sort_by { |x| x[num] }
+      end
+    end
+
+    def sbf
+      sb(1)
+    end
+
+    def sbl
+      sort_by { |x| x.last }
+    end
+
+    def sb2
+      sb(2)
+    end
+
+    def sb3
+      sb(3)
     end
 
     def rv
@@ -344,6 +369,9 @@ end
       Object.send(:tbl, self)
     end
 
+    def top_by(&block)
+      group_by(&block).transform_values(&:size).sort_by(&:last).reverse.to_h
+    end
   end
 end
 
@@ -380,17 +408,27 @@ end
 def pl
   wt do
     tbl(
-      DatabaseUtils.on_all_databases do
-        [DatabaseUtils.connection(slave: true), DatabaseUtils.connection(slave: false)].compact.map do |c|
-          data = c.select_all("show full processlist")
-          data = data.select {|z| z["Command"] != "Sleep"}.map do |z|
-            z.slice("Id", "Info", "Time")
-          end
+      DatabaseUtils.on_all_databases(slave: true) do
+        data = DatabaseUtils.connection.select_all("show full processlist")
+        data = data.select {|z| z["Command"] != "Sleep"}.map do |z|
+          z.slice("Id", "Info", "Time")
+        end
+        data.each do |record|
+          record["Shard"] = DatabaseUtils.current_shard.inspect
+          record["Slave"] = DatabaseUtils.uses_slave?
         end
       end.flatten(2)
     )
   end
 end
+
+def time
+  start = Time.now
+  yield
+  finish = Time.now
+  finish - start
+end
+time { sleep(1) }
 
 def wt(interval = 1)
   loop do
