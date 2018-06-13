@@ -58,6 +58,11 @@ if defined?(Rails) && Rails.respond_to?(:logger=)
 end
 
 def sql(query, shard = nil)
+def sql_kill(*ids)
+  ids.each do |id|
+    sql("kill #{id}") rescue false
+  end
+end
   ActiveRecord::Base.on_shard(shard) do
     ActiveRecord::Base.connection.select_all(query)
   end
@@ -67,7 +72,7 @@ end
 
 def sql_kill(*ids)
   ids.each do |id|
-    sql("kill #{id}")
+    sql("kill #{id}") rescue false
   end
 end
 
@@ -249,6 +254,10 @@ end
       mpfl(&block)
     end
 
+    def pmp(&block)
+      Parallel.map(self, in_threads: 10, &block)
+    end
+
     def ea(&block)
       call_support_method(:each, &block)
       self
@@ -407,18 +416,7 @@ end
 
 def pl
   wt do
-    tbl(
-      DatabaseUtils.on_all_databases(slave: true) do
-        data = DatabaseUtils.connection.select_all("show full processlist")
-        data = data.select {|z| z["Command"] != "Sleep"}.map do |z|
-          z.slice("Id", "Info", "Time")
-        end
-        data.each do |record|
-          record["Shard"] = DatabaseUtils.current_shard.inspect
-          record["Slave"] = DatabaseUtils.uses_slave?
-        end
-      end.flatten(2)
-    )
+    tbl(DatabaseUtils.processlist)
   end
 end
 
