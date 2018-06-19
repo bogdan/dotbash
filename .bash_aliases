@@ -281,3 +281,10 @@ fi
 alias xfce4-terminal="xfce4-terminal --hide-menubar"
 
 alias rs="reset"
+
+cdf() {
+  cut -d `shift` -f `shift` $@
+}
+csf() {
+  cut -d " " -f `shift` $@
+}
