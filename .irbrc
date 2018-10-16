@@ -317,7 +317,7 @@ end
     end
 
     def sbf
-      sb(1)
+      sb(0)
     end
 
     def sbl
@@ -337,7 +337,11 @@ end
     end
 
     def f(&block)
-      call_support_method(:find, &block)
+      if block
+        call_support_method(:find, &block)
+      else
+        first
+      end
     end
 
     def gb(&block)
