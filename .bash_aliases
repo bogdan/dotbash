@@ -112,7 +112,7 @@ alias gps='git push'
 alias gph='git push heroku'
 #compdef _git gp=git-push
 alias gdf="git diff --color"
-alias gdfm="git diff --color master"
+alias gdm="git diff --color master"
 alias gdfom="git diff --color origin/master"
 alias gdc="git diff --cached --color"
 #compdef _git gdf=git-diff
@@ -129,6 +129,7 @@ alias gco='git checkout'
 alias gcm='git checkout master'
 alias gcsb='git checkout staging-bastion'
 alias gcb='git checkout bogdan'
+alias gcsv='git checkout staging-void'
 #compdef _git gco=git-checkout
 alias gbr='git branch'
 #compdef _git gb=git-branch
@@ -288,3 +289,5 @@ cdf() {
 csf() {
   cut -d " " -f `shift` $@
 }
+
+alias json="node -e \"var string = require('fs').readFileSync(0).toString();string = string[0] == '{' ? JSON.stringify( JSON.parse(string), 0, 1 ) : string; console.log(string)\"" 
