@@ -21,3 +21,4 @@ vimrc
 vendor/bundle
 tmp-*
 .DS_Store
+yarn-error.log

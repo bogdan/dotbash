@@ -241,6 +241,9 @@ end
 
 [Enumerable, Hash].each do |klass|
   klass.class_eval do
+    def csv
+      puts map(&:to_csv)
+    end
 
     def j(sep = ',')
       join(sep)
