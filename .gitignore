@@ -9,16 +9,15 @@
 bin/rvm*
 bin/spellgood
 bin/phantomjs
+bin/scilla-checker
 config/initializers/bogdan.rb
 config/initializers/local.rb
-config/mongrel_cluster.yml
 doc/tags
 dump.rdb
 public/javascripts/local.js
 Procfile
 tags
 vimrc
-vendor/bundle
 tmp-*
 .DS_Store
 yarn-error.log
