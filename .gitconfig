@@ -43,11 +43,11 @@
 [url "git@github.com:bogdan/"]
     insteadOf = "ghb:"
     pushInsteadOf = "githubbogdan:"
-    pushInsteadOf = "git://github.com:bogdan/"
+    pushInsteadOf = "ssh://git@github.com/bogdan/"
 [url "git@github.com:"]
     insteadOf = "gh:"
     pushInsteadOf = "github:"
-    pushInsteadOf = "git://github.com/"
+    pushInsteadOf = "ssh://git@github.com/"
 [url "git://github.com/"]
     insteadOf = "github:"
 [url "git@gist.github.com:"]
@@ -58,3 +58,5 @@
     insteadOf = "gist:"
 [url "git@heroku.com:"]
     insteadOf = "heroku:"
+[credential]
+	helper = osxkeychain
