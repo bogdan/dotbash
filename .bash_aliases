@@ -291,3 +291,6 @@ csf() {
 }
 
 alias json="node -e \"var string = require('fs').readFileSync(0).toString();string = string[0] == '{' ? JSON.stringify( JSON.parse(string), 0, 1 ) : string; console.log(string)\"" 
+cj() {
+  curl $1 | jq
+}
