@@ -1,5 +1,5 @@
-def ri(object)
-  raise object.inspect
+def ri(*objects)
+  raise objects.inspect
 end
 
 def dbg(trace = nil)
@@ -8,7 +8,7 @@ def dbg(trace = nil)
   else
     require 'ruby-debug'
   end
-  if !trace || caller_include?(trace) 
+  if !trace || caller_include?(trace)
     debugger
   end
 end

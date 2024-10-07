@@ -3,12 +3,16 @@ require 'rubygems'
 require 'logger'
 require "net/http"
 begin
-  require 'active_support'
+  require 'active_support/logger'
+  require 'active_support/tagged_logging'
 rescue LoadError
 end
 
 irb_conf = defined?(::IRB) && IRB.respond_to?(:conf)
-load File.dirname(__FILE__) + "/.rubyrc/bogdan.rb"
+begin
+  load File.dirname(__FILE__) + "/.rubyrc/bogdan.rb"
+rescue LoadError
+end
 
 if irb_conf
   begin
@@ -30,7 +34,7 @@ end
 logger_class = defined?(ActiveSupport) ? ActiveSupport::Logger : Logger
 logger = logger_class.new(STDOUT)
 logger.formatter = proc do |_, _, _, message|
-  message + "\n"
+  "#{message}\n"
 end
 if defined?(ActiveSupport)
   logger = ActiveSupport::TaggedLogging.new(logger)
@@ -57,29 +61,10 @@ if defined?(Rails) && Rails.respond_to?(:logger=)
   Rails.logger = STDLOGGER
 end
 
-def sql(query, shard = nil)
-def sql_kill(*ids)
-  ids.each do |id|
-    sql("kill #{id}") rescue false
-  end
+begin
+  require 'http_logger'
+rescue LoadError
 end
-  ActiveRecord::Base.on_shard(shard) do
-    ActiveRecord::Base.connection.select_all(query)
-  end
-rescue NoMethodError
-  ActiveRecord::Base.connection.select_all(query)
-end
-
-def sql_kill(*ids)
-  ids.each do |id|
-    sql("kill #{id}") rescue false
-  end
-end
-
-def q(query)
-  sql(query)
-end
-
 if defined?(HttpLogger)
   HttpLogger.logger = STDLOGGER
 end
@@ -104,21 +89,11 @@ end
 
 
 class Object
-  def self.debug(method)
-    install_debug(self, method)
-    install_debug(singleton_class, method)
-  end
-
-  def debug(method)
-    install_debug(singleton_class, method)
-  end
-
   def install_debug(klass, method)
     klass.prepend(
       Module.new do
         define_method method do |*args, &block|
-          require 'byebug'
-          byebug
+          debugger
           super(*args, &block)
         end
       end
@@ -135,25 +110,19 @@ class Object
       self.public_methods.sort - Object.new.public_methods
     end
   end
-
-  def p
-    puts self
-  end
-
 end
 
 
 
-begin
-  require 'hirb'
-  HIRB_LOADED = true
-rescue LoadError
-  HIRB_LOADED = false
-end
+# begin
+  # require 'hirb'
+  # HIRB_LOADED = true
+# rescue LoadError
+  # HIRB_LOADED = false
+# end
 
 
 def loud_logger
-  enable_hirb
   set_logger_to STDLOGGER
 end
 
@@ -183,7 +152,6 @@ def init_ar
 end
 
 def quiet_logger
-  disable_hirb
   set_logger_to nil
 end
 
@@ -191,34 +159,35 @@ def set_logger_to(logger)
   return false unless defined?(ActiveRecord)
   Rails.logger = STDLOGGER
   ActiveRecord::Base.logger = logger
-  ActiveRecord::Base.clear_reloadable_connections!
+  ActiveRecord::Base.connection_handler.clear_reloadable_connections!
   true
 end
 
-def enable_hirb
-  if HIRB_LOADED
-    Hirb::Formatter.dynamic_config['ActiveRecord::Base']
-    Hirb.enable
-  else
-    puts "hirb is not loaded"
-  end
-end
+# def enable_hirb
+  # if HIRB_LOADED
+    # Hirb::Formatter.dynamic_config['ActiveRecord::Base']
+    # Hirb.enable
+  # else
+    # puts "hirb is not loaded"
+  # end
+# end
 
-def disable_hirb
-  if HIRB_LOADED
-    Hirb.disable
-  else
-    puts "hirb is not loaded"
-  end
-end
+# def disable_hirb
+  # if HIRB_LOADED
+    # Hirb.disable
+  # else
+    # puts "hirb is not loaded"
+  # end
+# end
 
 
 def r
-  reload!
+  r!
 end
 
 def r!
-  reload!
+ puts "Reloading..."
+ Rails.application.reloader.reload!
 end
 
 def ex
@@ -234,7 +203,7 @@ init_ar
 
 class Integer
   def h
- ActiveSupport::NumberHelper.number_to_delimited(self, delimiter: '_')
+    ActiveSupport::NumberHelper.number_to_delimited(self, delimiter: '_')
 
   end
 end
@@ -285,12 +254,6 @@ end
     def si(arg = nil)
       select do |el|
         el.include?(arg)
-      end
-    end
-
-    def ri(arg = nil)
-      reject do |el|
-        el.include?(el)
       end
     end
 
@@ -391,6 +354,12 @@ end
   end
 end
 
+class String
+  def sp(symbol)
+    split(symbol)
+  end
+end
+
 class Hash
   def trk(&block)
     call_support_method(:transform_keys, &block)
@@ -433,7 +402,6 @@ def time
   finish = Time.now
   finish - start
 end
-time { sleep(1) }
 
 def wt(interval = 1)
   loop do
@@ -449,17 +417,7 @@ def get(url, options = {})
   headers["User-Agent"] = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36'
   url = url.strip
   Rails.cache.instance_variable_get("@data").client.logger = STDLOGGER
-  if Rails.respond_to?(:persistent_cache)
-    Rails.cattr_reader :persistent_cache do
-      # Removing the pool
-      ActiveSupport::Cache::RedisStore.new(
-        RedisPool::CONFIG[:persistent_cache],
-        expires_in: 1.day,
-      )
-    end
 
-    Rails.persistent_cache.instance_variable_get("@data").client.logger = STDLOGGER
-  end
   [ActionView::Base, ActionController::Base, ActiveRecord::Base].each do |object|
     object.logger = STDLOGGER
   end
@@ -468,11 +426,10 @@ def get(url, options = {})
 
   ApplicationController.class_eval do
     def current_user
-      @cu||= User.find_by_email('bogdan@talkable.com')
+      @cu ||= User.find_by_email('agresso@gmail.com')
     end
   end
 
   origin = DOMAIN_SETTINGS[:default]
   app.get(Furi.defaults(url, origin), options)
 end
-

@@ -1,6 +1,7 @@
 *.swo
 *.swp
 .byebug_history
+.git-storyid
 .pivotalrc
 .pivotal_cache
 .rake_tasks
@@ -15,7 +16,6 @@ config/initializers/local.rb
 doc/tags
 dump.rdb
 public/javascripts/local.js
-Procfile
 tags
 vimrc
 tmp-*

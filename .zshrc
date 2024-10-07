@@ -1,10 +1,8 @@
 #!/bin/zsh
 
 autoload -U colors && colors
-autoload -U compinit && compinit
-autoload -U compdef
 
-[ -f ~/.bashrc ] && source ~/.bashrc
+source ~/.dotbash/.shellrc
 
 
 alias re="source ~/.zshrc"
@@ -27,9 +25,12 @@ PATH="$PATH:`git --exec-path`"
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
-if [[ -f /usr/local/share/zsh-completion ]]; then
+if [[ -d /usr/local/share/zsh-completions ]]; then
   fpath=(/usr/local/share/zsh-completions $fpath)
 fi
+
+autoload -U compinit && compinit
+autoload -U compdef
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
@@ -56,3 +57,18 @@ load-nvmrc
 
 # opam configuration
 test -r $HOME/.opam/opam-init/init.zsh && . $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+# FZF
+
+setopt HIST_IGNORE_ALL_DUPS
+FZF_DIR="`dirname $(realpath $(which fzf))`/.."
+if [ -d $FZF_DIR ]; then
+  [[ $- == *i* ]] && source "$FZF_DIR/shell/completion.zsh" 2> /dev/null
+  source "$FZF_DIR/shell/key-bindings.zsh"
+fi
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/bogdan/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/bogdan/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/bogdan/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/bogdan/Downloads/google-cloud-sdk/completion.zsh.inc'; fi

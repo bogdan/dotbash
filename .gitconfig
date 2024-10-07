@@ -1,7 +1,8 @@
 [core]
     ignorecase = true
-    editor = vim
+    editor = nvim
     excludesfile = /Users/bogdan/.gitignore
+    ; pager = ([[ -n $LESS ]] && less -iR ) || delta --dark
 [diff]
     color = true
 [alias]
@@ -40,23 +41,32 @@
   lineNumber = true
 
 
-[url "git@github.com:bogdan/"]
-    insteadOf = "ghb:"
-    pushInsteadOf = "githubbogdan:"
-    pushInsteadOf = "ssh://git@github.com/bogdan/"
-[url "git@github.com:"]
-    insteadOf = "gh:"
-    pushInsteadOf = "github:"
-    pushInsteadOf = "ssh://git@github.com/"
-[url "git://github.com/"]
-    insteadOf = "github:"
-[url "git@gist.github.com:"]
-    insteadOf = "gst:"
-    pushInsteadOf = "gist:"
-    pushInsteadOf = "git://gist.github.com/"
-[url "git://gist.github.com/"]
-    insteadOf = "gist:"
-[url "git@heroku.com:"]
-    insteadOf = "heroku:"
+; [url "git@github.com:unstoppabledomains/"]
+    ; insteadOf = "ghu:"
+    ; pushInsteadOf = "githubunstoppabledomains:"
+    ; pushInsteadOf = "ssh://git@github.com/unstoppabledomains/"
+; [url "git@github.com:bogdan/"]
+    ; insteadOf = "ghb:"
+    ; pushInsteadOf = "githubbogdan:"
+    ; pushInsteadOf = "ssh://git@github.com/bogdan/"
+; [url "git@github.com:"]
+    ; insteadOf = "gh:"
+    ; pushInsteadOf = "github:"
+    ; pushInsteadOf = "ssh://git@github.com/"
+; [url "git://github.com/"]
+    ; insteadOf = "github:"
+; [url "git@gist.github.com:"]
+    ; insteadOf = "gst:"
+    ; pushInsteadOf = "gist:"
+    ; pushInsteadOf = "git://gist.github.com/"
+; [url "git://gist.github.com/"]
+    ; insteadOf = "gist:"
 [credential]
 	helper = osxkeychain
+[delta]
+	side-by-side = true
+  width = 250
+[pull]
+	rebase = false
+[http]
+	sslVerify = false
