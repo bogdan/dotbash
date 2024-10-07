@@ -21,8 +21,6 @@ fi
 unset i
 
 
-PATH="$PATH:`git --exec-path`"
-
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 if [[ -d /usr/local/share/zsh-completions ]]; then
@@ -55,9 +53,6 @@ load-nvmrc() {
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
 
-# opam configuration
-test -r $HOME/.opam/opam-init/init.zsh && . $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-
 # FZF
 
 setopt HIST_IGNORE_ALL_DUPS
@@ -66,9 +61,3 @@ if [ -d $FZF_DIR ]; then
   [[ $- == *i* ]] && source "$FZF_DIR/shell/completion.zsh" 2> /dev/null
   source "$FZF_DIR/shell/key-bindings.zsh"
 fi
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/bogdan/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/bogdan/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/bogdan/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/bogdan/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
