@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 [ $ZSH_VERSION ] || alias compdef="true"
 
@@ -8,20 +8,15 @@ alias pg="ping google.com"
 alias s='screen'
 alias cdrecord="cdrecord dev=/dev/cdrom gracetime=5 -multi"
 alias mkisofs="mkisofs -J -R"
-alias mc="mc --colors normal=cyan,default:marked=green,default:directory=brown,default:errors=red,default:executable=red,default:link=green,default:device=magenta,default: menu=white,default:menuhot=white,default:menusel=white,default:menuhotsel=white,default:helpnormal=white,default:helplink=white,default:helpslink=white,default:helpitalic=white,default:reverse=brown,default:gauge=brown,default:input=brown,default:selected=white,default:markselect=brown,gray"
-alias locate='locate -i'
 alias j='jobs'
-alias g='grep  --color=auto -i'
-alias gr='grep -r --color=auto -i'
+alias g='grep -n --color=auto -i'
+alias gr='grep -n -r --color=auto -i'
 type ack > /dev/null 2> /dev/null || alias ack="ack-grep"
 type ack > /dev/null 2> /dev/null && alias ack-grep="ack"
 alias vg='grep --color=auto -iv'
 alias gw='grep --color=auto -w'
 alias ge='grep --color=auto -E'
-alias gf='find . | grep --color=auto -i'
-alias mloop="sudo mount -o loop"
 alias psg="ps aux | grep --color=auto -i"
-alias grey="convert -fx \(r+g+b\)/3"
 alias x="chmod a+x"
 #compdef _chmod x=chmod a+x
 alias rw="chmod u+rw"
@@ -30,12 +25,12 @@ alias ymd="date +%g.%m.%d"
 alias dtail="dmesg | tail -n 20"
 alias hd="head"
 
-alias t="tail -n1000"
+alias t="tail -n10"
 alias t2="tail -n100"
 alias t3="tail -n1000"
 alias t4="tail -n10000"
 alias t5="tail -n100000"
-alias tf="tail -n100 -f"
+alias tf="tail -n1 -f"
 
 alias l="less -i -R"
 alias less='less -i -R'
@@ -49,8 +44,6 @@ alias ash="apt-cache show"
 alias as="apt-cache search"
 #compdef _apt-cache as=apt-cache search
 
-alias gh="history | grep --color=auto -i"
-
 
 myhtop() {
   if [ `uname` = Darwin ] ; then
@@ -63,7 +56,10 @@ alias h='myhtop'
 
 # Nice output on linux
 alias du="du -h"
-alias dus="du -h -s"
+dus() { 
+  du -h -s $@  
+}
+# alias dus="du -h -s"
 alias dust="du -h -s *"
 alias df="df -h"
 
@@ -109,24 +105,24 @@ alias gpl='git pull'
 alias gup='git fetch && git rebase'
 #compdef _git gup=git-fetch
 alias gps='git push'
-alias gph='git push heroku'
+alias gph='git push heroku main'
 #compdef _git gp=git-push
 alias gdf="git diff --color"
-alias gdm="git diff --color master"
-alias gdfom="git diff --color origin/master"
+alias gdm="git diff --color main"
+alias gdfom="git diff --color origin/main"
 alias gdc="git diff --cached --color"
 #compdef _git gdf=git-diff
 alias gdc="git diff --color --cached"
 alias gds="git diff --color --stat"
-alias gdsm="git diff --color --stat master"
-alias gdsom="git diff --color --stat origin/master"
+alias gdsm="git diff --color --stat main"
+alias gdsom="git diff --color --stat origin/main"
 alias gci='git commit -v'
 alias gsi='git storyid'
 #compdef _git gc=git-commit
-alias gca='git commit --amend'
+alias gca='git commit --amend --no-edit'
 #compdef _git gca=git-commit
 alias gco='git checkout'
-alias gcm='git checkout master'
+alias gcm='git checkout main'
 alias gcsb='git checkout staging-bastion'
 alias gcb='git checkout bogdan'
 alias gcsv='git checkout staging-void'
@@ -156,15 +152,17 @@ alias ggr="git grep --color"
 alias ggrw="git grep -w --color"
 alias gm="git merge"
 alias gmb="git merge bogdan"
-alias gmm="git merge master"
+alias gmm="git merge main"
 alias gma="git merge --abort"
 alias gfu="git fetch upstream"
-alias gmum="git merge upstream/master"
-alias gmom="git merge origin/master"
+alias gmum="git merge upstream/main"
+alias gmom="git merge origin/main"
+alias gmob="git merge origin/bogdan"
 # Only current branch
 alias gpf="git push -f origin \$(git rev-parse --abbrev-ref HEAD)"
 alias grv="git revert"
 alias gcn="git clean -fd"
+unalias gap 2> /dev/null
 gap() {
   git add . && git ci $@ && git push
 }
@@ -179,9 +177,10 @@ $message"
 alias gpp="git pull && git push"
 alias ppd="gpl && (gps; cap staging deploy)"
 
-gtr() {
+unalias gsu 2> /dev/null
+gsu() {
   branch=`git branch | grep "*" | sed "s/* //g"`
-  git branch --set-upstream $branch origin/$branch
+  git branch --set-upstream-to=origin/$branch $branch
 }
 
  
@@ -212,14 +211,13 @@ myrake()
         \rake --trace -r rubygems $@
     fi
 }
-alias r="myrake"
+alias r="rails"
 
-alias rt="myrake -T"
-alias rtg="myrake -T | grep"
-alias rrg="rake routes | grep"
+alias rt="rails test"
+alias rhg="rails -h | grep"
+alias rrg="rails routes | grep"
 
 alias rake="myrake"
-alias rrg="myrake routes | g"
 alias gi="gem install"
 alias gu="gem uninstall"
 alias gl="gem list"
@@ -229,13 +227,6 @@ alias go="gem open"
 alias jgem="sudo jruby -S gem"
 alias jr="jruby -S rake"
 alias unit="ruby -I'lib:test'"
-alias pt='parallel_test'
-alias ptt='parallel_test test'
-alias pts="parallel_rspec spec"
-
-alias csd="cap staging deploy"
-alias cdd="cap dev deploy"
-alias cpd="cap production deploy"
 
 alias pci="rvm system do pivotal commit"
 
@@ -245,11 +236,6 @@ alias bu="bundle update"
 alias bo="bundle open"
 
 alias sp="bundle exec rspec"
-
-alias zr="bundle exec zeus --log ./log/zeus.log rake"
-alias zt="bundle exec zeus --log ./log/zeus.log test"
-alias zc="bundle exec zeus --log ./log/zeus.log console"
-alias zs="bundle exec zeus --log ./log/zeus.log start"
 
 alias k='kill'
 alias k9='kill -9'
@@ -265,32 +251,37 @@ k9g() {
 #
 
 alias service="sudo service"
-alias deployer="sudo -u deployer"
-#compdef _sudo deployer=sudo
-alias svi="sudo vi"
-
-if [ -d ~/makabu/allan ] ; then
-  alias curebit="cd ~/makabu/allan/curebit-marketing; git status"
-  alias devauc="cd ~/makabu/allan/devauc; git status"
-fi
-
-
-#gvim()
-#{
-  #(unset GEM_PATH GEM_HOME; command gvim "$@")
-#}
-alias xfce4-terminal="xfce4-terminal --hide-menubar"
-
+alias airport='sudo /System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport'
 alias rs="reset"
 
 cdf() {
-  cut -d`shift` -f`shift` $@
+  d=$1
+  f=$2
+  shift
+  shift
+  cut -d $d -f $f $@
 }
 csf() {
   cut -d " " -f `shift` $@
 }
 
+alias y="yarn"
+alias yt="yarn test:single"
+alias yw="yarn watch"
 alias json="node -e \"var string = require('fs').readFileSync(0).toString();string = string[0] == '{' ? JSON.stringify( JSON.parse(string), 0, 1 ) : string; console.log(string)\"" 
+alias tsn="ts-node -r tsconfig-paths/register -T --prefer-ts-exts -O '{\"noUnusedLocals\": false}'"
+NODE_CONSOLE="
+var l = console.log;
+var r = require;
+var _r = r;
+var _l = l;
+Promise.prototype.t = Promise.prototype.then;
+Promise.prototype.l = function() {return this.then(console.log, console.error)}
+require('repl').start('> ')
+"
+alias tscl="ts-node -T --prefer-ts-exts -O '{\"noUnusedLocals\": false}' -e \"$NODE_CONSOLE\""
+alias pts-node="NODE_ENV=production-support ts-node -T -O '{\"noUnusedLocals\": false}'"
 cj() {
   curl $1 | jq
 }
+alias nv="nvm use"
