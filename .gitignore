@@ -21,3 +21,4 @@ vimrc
 tmp-*
 .DS_Store
 yarn-error.log
+local_benchmark.rb

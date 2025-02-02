@@ -31,8 +31,9 @@ autoload -U compinit && compinit
 autoload -U compdef
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
 
 autoload -U add-zsh-hook
 load-nvmrc() {
@@ -61,3 +62,6 @@ if [ -d $FZF_DIR ]; then
   [[ $- == *i* ]] && source "$FZF_DIR/shell/completion.zsh" 2> /dev/null
   source "$FZF_DIR/shell/key-bindings.zsh"
 fi
+
+# Created by `pipx` on 2024-10-07 13:07:02
+export PATH="$PATH:/Users/bogdan/.local/bin"

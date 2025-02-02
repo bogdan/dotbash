@@ -16,7 +16,7 @@
     wtf = !git-wtf
 
 [merge]
-    tool = gvimdiff2
+    tool = nvimdiff
 
 [log]
     color = true
