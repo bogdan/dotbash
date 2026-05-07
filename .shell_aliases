@@ -2,21 +2,17 @@
 
 [ $ZSH_VERSION ] || alias compdef="true"
 
-alias eject="eject -T" 
 alias p="ping"
 alias pg="ping google.com"
-alias s='screen'
-alias cdrecord="cdrecord dev=/dev/cdrom gracetime=5 -multi"
-alias mkisofs="mkisofs -J -R"
 alias j='jobs'
-alias g='grep -n --color=auto -i'
-alias gr='grep -n -r --color=auto -i'
+alias g='grep -n --color=always -i'
+alias gr='grep -n -r --color=always -i'
 type ack > /dev/null 2> /dev/null || alias ack="ack-grep"
 type ack > /dev/null 2> /dev/null && alias ack-grep="ack"
-alias vg='grep --color=auto -iv'
-alias gw='grep --color=auto -w'
-alias ge='grep --color=auto -E'
-alias psg="ps aux | grep --color=auto -i"
+alias vg='grep --color=always -iv'
+alias gw='grep --color=always -w'
+alias ge='grep --color=always -E'
+alias psg="ps aux | grep --color=always -i"
 alias x="chmod a+x"
 #compdef _chmod x=chmod a+x
 alias rw="chmod u+rw"
@@ -35,16 +31,6 @@ alias tf="tail -n1 -f"
 alias l="less -i -R"
 alias less='less -i -R'
    
-# APT
-alias ag="sudo apt-get -V"
-alias ai="sudo apt-get -V install"
-alias ac="apt-cache"
-alias ash="apt-cache show" 
-#compdef _apt-cache ash=apt-cache show
-alias as="apt-cache search"
-#compdef _apt-cache as=apt-cache search
-
-
 myhtop() {
   if [ `uname` = Darwin ] ; then
     sudo htop
@@ -62,13 +48,6 @@ dus() {
 # alias dus="du -h -s"
 alias dust="du -h -s *"
 alias df="df -h"
-
-
-# ICONV
-alias koi2win="iconv -cf koi8-r -t cp1251"
-alias win2koi="iconv -cf cp1251 -t koi8-r"
-alias utf2koi="iconv -cf utf8 -t koi8-r"
-alias koi2utf="iconv -cf koi8-r -t utf8"
 
 # LS
 ls -G > /dev/null 2> /dev/null && COLOR="-G"
@@ -88,12 +67,21 @@ alias ....="cd ../../../"
 
 alias re="source ~/.bashrc"
 
+#
+# Heroku
+#
+
+alias hrc="heroku run console"
+alias hrb="heroku run bash"
+alias hlt="heroku logs --tail"
+alias hlg="heroku login"
 
 #
 # Git
 #
 
 alias gad="git add"
+alias gap="git add -p"
 #compdef _git gad=git-add
 
 alias gcl="git clone"
@@ -106,18 +94,20 @@ alias gup='git fetch && git rebase'
 #compdef _git gup=git-fetch
 alias gps='git push'
 alias gph='git push heroku main'
+alias gphf="git commit --allow-empty -m 'Force deploy' && git push heroku main"
 #compdef _git gp=git-push
-alias gdf="git diff --color"
-alias gdm="git diff --color main"
+alias gdf="git diff --color -w"
+alias gdm="git diff --color -w main"
 alias gdfom="git diff --color origin/main"
-alias gdc="git diff --cached --color"
+alias gdc="git diff --cached --color -w"
 #compdef _git gdf=git-diff
-alias gdc="git diff --color --cached"
-alias gds="git diff --color --stat"
-alias gdsm="git diff --color --stat main"
-alias gdsom="git diff --color --stat origin/main"
+alias gdc="git diff --color --cached -w"
+alias gds="git diff --color --stat -w"
+alias gdsm="git diff --color --stat -w main"
+alias gdsom="git diff --color --stat -w origin/main"
 alias gci='git commit -v'
 alias gsi='git storyid'
+alias gcg='git diff --staged -w | sgpt --code "Make commit message, use markdown" | git commit --file=- --edit'
 #compdef _git gc=git-commit
 alias gca='git commit --amend --no-edit'
 #compdef _git gca=git-commit
@@ -146,7 +136,7 @@ alias grh="git reset 'HEAD^'"
 alias gdo="git commit -m 'do'"
 alias ggo="git add . && git commit -m 'do' && git push"
 
-alias glp="git log -p"
+alias glp="git log -p -w"
 alias gbl="git blame"
 alias ggr="git grep --color"
 alias ggrw="git grep -w --color"
@@ -162,10 +152,6 @@ alias gmob="git merge origin/bogdan"
 alias gpf="git push -f origin \$(git rev-parse --abbrev-ref HEAD)"
 alias grv="git revert"
 alias gcn="git clean -fd"
-unalias gap 2> /dev/null
-gap() {
-  git add . && git ci $@ && git push
-}
 
 gac() {
   heading=`git diff --stat --cached | head -1`
@@ -183,9 +169,7 @@ gsu() {
   git branch --set-upstream-to=origin/$branch $branch
 }
 
- 
-
-
+alias edit="neovide --fork"
 
 bashgit() {
     cd ~/.dotbash
@@ -213,9 +197,11 @@ myrake()
 }
 alias r="rails"
 
-alias rt="rails test"
-alias rhg="rails -h | grep"
-alias rrg="rails routes | grep"
+alias rt="bundle exec rails test"
+alias frt="FAST_ONLY=1 bundle exec rails test"
+alias rr="bundle exec rails routes"
+alias rhg="bundle exec rails -h | grep"
+alias rrg="bundle exec rails routes | grep"
 
 alias rake="myrake"
 alias gi="gem install"
@@ -250,8 +236,6 @@ k9g() {
 # Just sudo
 #
 
-alias service="sudo service"
-alias airport='sudo /System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport'
 alias rs="reset"
 
 cdf() {
@@ -270,17 +254,6 @@ alias yt="yarn test"
 alias yw="yarn watch"
 alias json="node -e \"var string = require('fs').readFileSync(0).toString();string = string[0] == '{' ? JSON.stringify( JSON.parse(string), 0, 1 ) : string; console.log(string)\"" 
 alias tsn="ts-node -r tsconfig-paths/register -T --prefer-ts-exts -O '{\"noUnusedLocals\": false}'"
-NODE_CONSOLE="
-var l = console.log;
-var r = require;
-var _r = r;
-var _l = l;
-Promise.prototype.t = Promise.prototype.then;
-Promise.prototype.l = function() {return this.then(console.log, console.error)}
-require('repl').start('> ')
-"
-alias tscl="ts-node -T --prefer-ts-exts -O '{\"noUnusedLocals\": false}' -e \"$NODE_CONSOLE\""
-alias pts-node="NODE_ENV=production-support ts-node -T -O '{\"noUnusedLocals\": false}'"
 cj() {
   curl $1 | jq
 }
