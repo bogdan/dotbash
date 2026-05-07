@@ -1,0 +1,99 @@
+#!/bin/sh
+
+[[ $- == *i* ]] || return
+
+export _Z_NO_RESOLVE_SYMLINKS=1
+source ~/.dotbash/bin/z.sh
+# If not running interactively, don't do anything
+export HISTCONTROL=ignoredups
+
+# Time zone
+TZ='Europe/Madrid'; export TZ
+# TZ='Europe/Kiev'; export TZ
+
+# default PS1
+PS1="`whoami`@`hostname` \`pwd\` > "
+
+if [ -d "$HOME/bin" ] ; then
+    PATH="$PATH:$HOME/bin"
+fi
+
+if [ -f "$HOME/.ssh/id_rsa" ] && [ ! "`ssh-add -l | grep id_rsa`" ]; then
+  ssh-add $HOME/.ssh/id_rsa > /dev/null
+fi
+
+#
+# Editor
+#
+ 
+if [ $DISPLAY ] || [ `uname` = Darwin ] ; then
+  if which neovide > /dev/null ; then
+    EDITOR='neovide --fork'
+  elif which vimr > /dev/null ; then
+    EDITOR='vimr'
+  elif which gvim > /dev/null ; then
+    EDITOR="gvim"
+  elif which mvim > /dev/null ; then
+    EDITOR="mvim"
+  fi
+elif which vi > /dev/null ; then
+  EDITOR="vi"
+fi
+export EDITOR
+
+if [ "`which less`" ] ; then 
+	PAGER="less -i"
+elif [ "`which more`" ] ; then 
+	PAGER="more -i"
+fi
+export PAGER
+
+if which chromium-browser > /dev/null ; then 
+  BROWSER="chromium-browser"
+elif [ -f /Applications/Google\ Chrome.app ] ; then
+  BROWSER="open /Applications/Google\ Chrome.app"
+fi
+export BROWSER
+
+
+
+#
+# Places
+# 
+
+if [ -f "$HOME/.rubyrc/bogdan.rb" ]; then
+  RUBYLIB="$HOME/.rubyrc"
+  RUBYOPTS="-r bogdan"
+  RUBYOPT="rbogdan"
+  export RUBYLIB RUBYOPT
+fi 
+
+
+
+[ -f ~/.dotbash/.shell_aliases ] && source ~/.dotbash/.shell_aliases
+
+export DISABLE_SPRING="y"
+export RET="RAILS_ENV=test"
+export REP="RAILS_ENV=production"
+mkcd()
+{
+	mkdir $1
+	cd $1
+}
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+
+# UD website variable
+export APP_ENV="development"
+export DEPLOYMENT="development"
+
+export FZF_DEFAULT_OPTS="-i"
+
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+[ -f ~/.dotbash/secrets.sh ] && source ~/.dotbash/secrets.sh
