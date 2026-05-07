@@ -1,14 +1,17 @@
-def ri(*objects)
-  raise objects.inspect
+class Object
+  def ri
+    raise inspect
+  end
+
+  def pp
+    puts inspect
+    self
+  end
 end
 
 def dbg(trace = nil)
-  if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("1.9.3")
-    require "debugger"
-  else
-    require 'ruby-debug'
-  end
   if !trace || caller_include?(trace)
+    require 'debug'
     debugger
   end
 end

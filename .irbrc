@@ -31,15 +31,17 @@ if irb_conf
 end
 
 
-logger_class = defined?(ActiveSupport) ? ActiveSupport::Logger : Logger
-logger = logger_class.new(STDOUT)
-logger.formatter = proc do |_, _, _, message|
-  "#{message}\n"
+unless defined?(::STDLOGGER)
+  logger_class = defined?(ActiveSupport) ? ActiveSupport::Logger : Logger
+  logger = logger_class.new(STDOUT)
+  logger.formatter = proc do |_, _, _, message|
+    "#{message}\n"
+  end
+  if defined?(ActiveSupport)
+    logger = ActiveSupport::TaggedLogging.new(logger)
+  end
+  STDLOGGER = logger
 end
-if defined?(ActiveSupport)
-  logger = ActiveSupport::TaggedLogging.new(logger)
-end
-STDLOGGER = logger
 
 if ENV['RAILS_ENV'] && irb_conf
   IRB.conf[:PROMPT] ||= {}
@@ -63,10 +65,10 @@ end
 
 begin
   require 'http_logger'
+  HttpLogger.configure do |c|
+    c.logger = STDLOGGER
+  end
 rescue LoadError
-end
-if defined?(HttpLogger)
-  HttpLogger.logger = STDLOGGER
 end
 
 def watch(seconds = 1)
@@ -412,12 +414,12 @@ def wt(interval = 1)
   end
 end
 
-def get(url, options = {})
+def get(path, **options)
   headers = options[:headers] ||= {}
-  headers["User-Agent"] = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36'
-  url = url.strip
-  data = Rails.cache.instance_variable_get("@data")
-  data.client.logger = STDLOGGER if data
+  headers["User-Agent"] = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36'
+  path = path.strip
+  # data = Rails.cache.instance_variable_get("@data")
+  # data.client.logger = STDLOGGER if data
 
   [ActionView::Base, ActionController::Base, ActiveRecord::Base].each do |object|
     object.logger = STDLOGGER
@@ -425,12 +427,9 @@ def get(url, options = {})
 
   ApplicationController.perform_caching = true
 
-  ApplicationController.class_eval do
-    def current_user
-      @cu ||= User.find_by_email('agresso@gmail.com')
-    end
-  end
-
-  origin = DOMAIN_SETTINGS[:default]
-  app.get(Furi.defaults(url, origin), options)
+  url = Furi.defaults(
+    path,
+    **Rails.application.routes.default_url_options,
+  )
+  app.get(url, **options)
 end
