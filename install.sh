@@ -10,9 +10,9 @@ DOTBASH=$USERHOME/.dotbash
 [ -d $DOTBASH ] || ln -s `pwd` $DOTBASH
 
 for FILE_NAME in .bashrc .irbrc .gemrc \
-  .gitconfig .gitignore .vim bin .zshrc .zsh .rubyrc \
-  .rdebugrc .psqlrc .pryrc .tigrc .screenrc .tmux.conf \
-  .ctags
+  .gitconfig .gitignore bin .zshrc .zsh .rubyrc \
+  .rdebugrc .psqlrc .pryrc .tigrc .tmux.conf \
+  .ctags .shellrc .shell_aliases
 do
     FILE_PATH=$DOTBASH/$FILE_NAME
     rm -f $USERHOME/$FILE_NAME
