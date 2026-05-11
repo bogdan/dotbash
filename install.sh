@@ -25,6 +25,14 @@ if ! command -v rvm &> /dev/null; then
   \curl -sSL https://get.rvm.io | bash -s stable
 fi
 
+mkdir -p $USERHOME/.config
+rm -rf $USERHOME/.config/ghostty
+ln -s $DOTBASH/ghostty $USERHOME/.config/ghostty
+
+mkdir -p $USERHOME/.claude
+rm -rf $USERHOME/.claude/skills
+ln -s $DOTBASH/skills $USERHOME/.claude/skills
+
 mkdir -p $USERHOME/tmp
 touch $USERHOME/.irb_history
 chmod a+rw $USERHOME/.irb_history
