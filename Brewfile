@@ -1,5 +1,12 @@
 tap "heroku/brew"
 
+brew "openssl@3"
+brew "readline"
+brew "ack"
+brew "git"
+brew "gh"
+brew "tig"
+brew "universal-ctags"
 brew "nvm"
 brew "postgresql"
 brew "heroku/brew/heroku"
