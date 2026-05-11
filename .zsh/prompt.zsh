@@ -21,3 +21,7 @@ export PS1="%{$fg[green]%}%n@%m %{$fg[blue]%}%~ %{$fg[cyan]%}\$(git_prompt_info)
 
 
 setopt promptsubst
+
+# Reset cursor to block on each prompt (overrides apps like fzf that change it to bar)
+zle-line-init() { print -n '\e[2 q' }
+zle -N zle-line-init
