@@ -14,6 +14,8 @@ TZ='Europe/Madrid'; export TZ
 # default PS1
 PS1="`whoami`@`hostname` \`pwd\` > "
 
+export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+
 if [ -d "$HOME/bin" ] ; then
     PATH="$PATH:$HOME/bin"
 fi
