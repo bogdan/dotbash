@@ -21,6 +21,7 @@ palette = 15=#e5eff5
 font-family = Inconsolata
 font-thicken = true
 font-size = 20
+copy-on-select = clipboard
 cursor-style = block
 cursor-style-blink = false
 keybind = opt+b=text:\x1bb
