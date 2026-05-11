@@ -4,6 +4,7 @@ if [ -d /Users ] ; then
 else
   USERHOME=/home/bogdan
 fi
+USERHOME=$HOME
 
 DOTBASH=$USERHOME/.dotbash
 
@@ -19,6 +20,10 @@ do
     ln -s $FILE_PATH $USERHOME
 done
 
+
+if ! command -v rvm &> /dev/null; then
+  \curl -sSL https://get.rvm.io | bash -s stable
+fi
 
 mkdir -p $USERHOME/tmp
 touch $USERHOME/.irb_history
