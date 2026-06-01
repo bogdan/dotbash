@@ -1,7 +1,8 @@
 [core]
     ignorecase = true
     editor = nvim
-    excludesfile = /Users/bogdan/.gitignore
+	excludesFile = ~/.gitignore
+  pager = delta
     ; pager = ([[ -n $LESS ]] && less -iR ) || delta --dark
 [diff]
     color = true
@@ -17,6 +18,7 @@
 
 [merge]
     tool = nvimdiff
+	conflictStyle = zdiff3
 
 [log]
     color = true
@@ -65,8 +67,11 @@
 	helper = osxkeychain
 [delta]
 	side-by-side = true
-  width = 250
+	navigate = true
+	dark = true
 [pull]
 	rebase = false
 [http]
 	sslVerify = false
+[interactive]
+  diffFilter = delta --color-only

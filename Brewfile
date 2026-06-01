@@ -9,6 +9,7 @@ brew "tig"
 brew "universal-ctags"
 brew "nvm"
 brew "postgresql"
+brew "git-delta"
 brew "heroku/brew/heroku"
 
 cask "font-inconsolata"
