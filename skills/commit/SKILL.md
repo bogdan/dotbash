@@ -26,7 +26,7 @@ If no arguments are given, work with whatever is already staged.
 1. If arguments contain file paths, stage them with `git add`.
 2. Run `git diff --staged` and `git status` to understand what is staged.
 3. If nothing is staged, tell the user and stop.
-4. Generate a concise commit message (subject line only, imperative mood, ≤72 chars). Use recent `git log --oneline -5` to match the repo's style. Incorporate any context from the arguments.
+4. Generate a concise commit message (only subject line for smaller changes, with description for larger changes). Use recent `git log --oneline -5` to match the repo's style. Incorporate any context from the arguments.
 5. Build `/tmp/commit_msg.txt` using the bundled script:
    ```
    ${CLAUDE_SKILL_DIR}/scripts/build_commit_file.sh "<message>"
