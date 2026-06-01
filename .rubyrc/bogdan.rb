@@ -3,7 +3,7 @@ class Object
     raise inspect
   end
 
-  def pp
+  def pi
     puts inspect
     self
   end
